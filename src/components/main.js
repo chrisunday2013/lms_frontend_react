@@ -1,7 +1,10 @@
 import Header from './header';
 import Home from './home';
 import Footer from './footer';
-import About from './about';
+import CourseDetail from './courseDetail';
+import Login from './user/login';
+import Register from './user/register';
+
 
 import {Routes as Switch, Route} from 'react-router-dom';
 
@@ -11,7 +14,9 @@ function Main() {
       <Header/>
       <Switch>
          <Route path="/" element={<Home/>}/>
-         <Route path="/about" element={<About/>}/>
+         <Route path="/detail/:course_id" element={<CourseDetail/>}/>
+         <Route path="/user-login" element={<Login/>}/>
+         <Route path="/user-register" element={<Register/>}/>
       </Switch>
       <Footer/>
     </div>

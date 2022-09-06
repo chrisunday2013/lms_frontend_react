@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 
+
 function Home(){
     return (
       <div className="container mt-4">
@@ -8,9 +9,9 @@ function Home(){
           <div className="row mb-4">
               <div className="col-md-3">
                     <div className="card">
-                        <a href="#"><img src="logo192.png" className="card-img-top" alt="..."/></a>
+                        <Link to="/detail/1"><img src="logo192.png" className="card-img-top" alt="..."/></Link>
                             <div className="card-body">
-                                <h5 className="card-title"><a href="#">Course title</a></h5>
+                                <h5 className="card-title"><Link to="/detail/1">Course title</Link></h5>
                             </div>
                     </div>
               </div>
