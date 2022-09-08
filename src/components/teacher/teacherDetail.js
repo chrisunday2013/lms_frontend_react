@@ -26,18 +26,16 @@ function TeacherDetail(){
                             Course List
                         </h5>
                          <div className="list-group list-group-flush">
-                            <Link to="/detail/1" class="list-group-item list-group-item-action">Django course 1</Link>
-                            <Link to="/detail/1" class="list-group-item list-group-item-action">Django course 2</Link>
-                            <Link to="/detail/1" class="list-group-item list-group-item-action">Java course 1</Link>
-                            <Link to="/detail/1" class="list-group-item list-group-item-action">Java course 2</Link>
-                            <Link to="/detail/1" class="list-group-item list-group-item-action">Php course 1</Link>
-                            <Link to="/detail/1" class="list-group-item list-group-item-action">Php course 2</Link>
+                            <Link to="/detail/1" className="list-group-item list-group-item-action">Django course 1</Link>
+                            <Link to="/detail/1" className="list-group-item list-group-item-action">Django course 2</Link>
+                            <Link to="/detail/1" className="list-group-item list-group-item-action">Java course 1</Link>
+                            <Link to="/detail/1" className="list-group-item list-group-item-action">Java course 2</Link>
+                            <Link to="/detail/1" className="list-group-item list-group-item-action">Php course 1</Link>
+                            <Link to="/detail/1" className="list-group-item list-group-item-action">Php course 2</Link>
                             
                          </div>
                   </div>
     
-              
-               
             </div>
     )
 }

@@ -11,6 +11,12 @@ import RecommendedCoses from './recomm_cos';
 import Profile from './profile';
 import ChangePassword from './changePassword';
 
+
+import AllCourses from './allCourses';
+import AllPopularCourses from './allPopularCourses';
+import AllPopularTeachers from './allPopularTeacher';
+
+
 import TeacherLogin from './teacher/teacherLogin';
 import TeacherReg from './teacher/teacherRegister';
 import TeacherDashboard from './teacher/teacherDash';
@@ -50,6 +56,9 @@ function Main() {
          <Route path="/teacher-change-pwd" element={<TeacherChangePassword/>}/>
          <Route path="/teacher-login" element={<TeacherLogin/>}/>
          <Route path="/teacher-detail/:teacher_id" element={<TeacherDetail/>}/>
+         <Route path="/all-courses" element={<AllCourses/>}/>
+         <Route path="/all-popularCos" element={<AllPopularCourses/>}/>
+         <Route path="/all-popularTeachers" element={<AllPopularTeachers/>}/>
       </Switch>
       <Footer/>
     </div>
