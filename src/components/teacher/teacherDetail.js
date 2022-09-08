@@ -1,9 +1,8 @@
-import {useParams} from 'react-router-dom';
+
 import {Link} from 'react-router-dom';
 
 function TeacherDetail(){
 
-        let {teacher_id}=useParams();
         return (
             <div className="container mt-3">
                  <div className="row">
@@ -15,8 +14,8 @@ function TeacherDetail(){
                              <p>Cards include a few options for working with images. Choose from appending 
                                 “image caps” at either end of a card,
                                  overlaying images with card content, or simply embedding the image in a card.</p>
-                                 <p className="fw-bold">Skills: <Link to="/teacher-detail/1">Django</Link>, <Link to="/teacher-detail/1">React</Link>, <Link to="/teacher-detail/1">Php</Link></p>
-                                 <p className="fw-bold">Recent Course: <Link to="/teacher-detail/1">Vue.js Course</Link></p>
+                                 <p className="fw-bold">Skills: <Link to="/category/django">Django</Link>, <Link to="/category/django">React</Link>, <Link to="/category/php">Php</Link></p>
+                                 <p className="fw-bold">Recent Course: <Link to="/category/django">Vue.js Course</Link></p>
                                  <p className="fw-bold">Rating: 4.5/5</p>
                         </div>
                  </div>

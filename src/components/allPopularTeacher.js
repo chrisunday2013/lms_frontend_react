@@ -1,10 +1,25 @@
 import {Link} from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import axios from 'axios';
 
+
+const baseUrl="http://localhost:8000/api";
 function AllPopularTeachers(){
+    const [teacher, setTeacher]=useState(null);
+
+    useEffect(()=>{
+        axios.get(baseUrl+'/teacher/').then((response)=>{
+            // console.log(response.data);
+            setTeacher(response.data);
+        });
+    },[]);
+    console.log(teacher);
+
+
     return(
           <div className="container mt-3">
                {/* latest courses*/}
-        <h3 className="pb-1 mb-4">Popular Teachers </h3>
+        <h3 className="pb-1 mb-4">Popular xyzgbh </h3>
           <div className="row mb-4">
               <div className="col-md-3 mb-4">
                     <div className="card">

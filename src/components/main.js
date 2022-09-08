@@ -15,6 +15,7 @@ import ChangePassword from './changePassword';
 import AllCourses from './allCourses';
 import AllPopularCourses from './allPopularCourses';
 import AllPopularTeachers from './allPopularTeacher';
+import CourseCategory from './CourseCategory';
 
 
 import TeacherLogin from './teacher/teacherLogin';
@@ -26,6 +27,7 @@ import UserList from './teacher/myUsers';
 import TeacherProfile from './teacher/teacherProfile';
 import TeacherChangePassword from './teacher/teacherChangePass';
 import TeacherDetail from './teacher/teacherDetail';
+
 
 
 
@@ -59,6 +61,7 @@ function Main() {
          <Route path="/all-courses" element={<AllCourses/>}/>
          <Route path="/all-popularCos" element={<AllPopularCourses/>}/>
          <Route path="/all-popularTeachers" element={<AllPopularTeachers/>}/>
+         <Route path="/category/:category_slug" element={<CourseCategory/>}/>
       </Switch>
       <Footer/>
     </div>
