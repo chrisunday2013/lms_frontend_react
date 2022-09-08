@@ -16,7 +16,7 @@ function CourseDetail(){
                          <p>Cards include a few options for working with images. Choose from appending 
                             “image caps” at either end of a card,
                              overlaying images with card content, or simply embedding the image in a card.</p>
-                             <p className="fw-bold">Course By: <a href="#">Teacher 1</a></p>
+                             <p className="fw-bold">Course By: <Link to="/teacher-detail/1">Teacher 1</Link></p>
                              <p className="fw-bold">Duration: 3 Hours 30 Minutes</p>
                              <p className="fw-bold">Total Enrolled: 20 Students</p>
                              <p className="fw-bold">Rating: 4.5/5</p>

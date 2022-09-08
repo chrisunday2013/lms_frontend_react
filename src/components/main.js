@@ -19,6 +19,7 @@ import AddCourse from './teacher/addCos';
 import UserList from './teacher/myUsers';
 import TeacherProfile from './teacher/teacherProfile';
 import TeacherChangePassword from './teacher/teacherChangePass';
+import TeacherDetail from './teacher/teacherDetail';
 
 
 
@@ -48,6 +49,7 @@ function Main() {
          <Route path="/teacher-profile" element={<TeacherProfile/>}/>
          <Route path="/teacher-change-pwd" element={<TeacherChangePassword/>}/>
          <Route path="/teacher-login" element={<TeacherLogin/>}/>
+         <Route path="/teacher-detail/:teacher_id" element={<TeacherDetail/>}/>
       </Switch>
       <Footer/>
     </div>
