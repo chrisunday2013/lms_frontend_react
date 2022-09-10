@@ -58,7 +58,16 @@ function TeacherReg(){
         }
     };
 
+    
+    
+    const teacherLoginStatus=localStorage.getItem('teacherLoginStatus')
+    if(teacherLoginStatus=='true'){
+        window.location.href='/teacher-dashboard'
+    }
 
+    useEffect(()=>{
+        document.title="Teacher Register"
+    });
     
     return (
         <div className="container mt-4">

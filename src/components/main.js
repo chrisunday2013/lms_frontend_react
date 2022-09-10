@@ -27,6 +27,7 @@ import UserList from './teacher/myUsers';
 import TeacherProfile from './teacher/teacherProfile';
 import TeacherChangePassword from './teacher/teacherChangePass';
 import TeacherDetail from './teacher/teacherDetail';
+import TeacherLogout from './teacher/teacherLogout';
 
 
 
@@ -57,6 +58,7 @@ function Main() {
          <Route path="/teacher-profile" element={<TeacherProfile/>}/>
          <Route path="/teacher-change-pwd" element={<TeacherChangePassword/>}/>
          <Route path="/teacher-login" element={<TeacherLogin/>}/>
+         <Route path="/teacher-logout" element={<TeacherLogout/>}/>
          <Route path="/teacher-detail/:teacher_id" element={<TeacherDetail/>}/>
          <Route path="/all-courses" element={<AllCourses/>}/>
          <Route path="/all-popularCos" element={<AllPopularCourses/>}/>

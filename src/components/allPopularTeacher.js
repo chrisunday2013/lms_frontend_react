@@ -19,7 +19,7 @@ function AllPopularTeachers(){
     return(
           <div className="container mt-3">
                {/* latest courses*/}
-        <h3 className="pb-1 mb-4">Popular xyzgbh </h3>
+        <h3 className="pb-1 mb-4">Popular Teacher </h3>
           <div className="row mb-4">
               <div className="col-md-3 mb-4">
                     <div className="card">
