@@ -84,7 +84,7 @@ const submitForm=()=>{
                               <div className="mb-3 row">
                                     <label for="title" className="col-sm-2 col-form-label">Category</label>
                                     <select name="category" onChange={handleChange} className="form-control">
-                                        {cosCat.map((category, index)=>{return <option key={index}>{category.title}</option>})}
+                                        {cosCat.map((category, index)=>{return <option key={index} value={category.id}>{category.title}</option>})}
 
                                     </select>
                             </div>

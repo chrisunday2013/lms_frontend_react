@@ -1,8 +1,34 @@
 import TeacherSideBar from "./teacherSideBar";
 import {Link} from "react-router-dom";
+import axios from 'axios';
+import { useState, useEffect } from "react";
+
+
+const baseUrl='http://127.0.0.1:8000/api';
 
 
 function TeacherCourses(){
+
+    const [courseData, setCourseData]=useState([]);
+
+    const teacherId=localStorage.getItem('teacherId');
+    console.log(teacherId);
+        
+    // fetch courses when page loads
+    useEffect(()=>{
+
+        try{
+            axios.get(baseUrl+'/teacher-courses/'+teacherId)
+            .then((res)=>{
+                setCourseData(res.data);
+            })
+        }catch(error){
+            console.log(error);
+        }
+    },[]);
+
+    console.log(courseData)
+
     return (
         <div className="container mt-4">
             <div className="row">
@@ -22,11 +48,17 @@ function TeacherCourses(){
                                        </tr>
                                   </thead>
                                   <tbody>
-                                       <td>Php Development</td>
-                                       <td><Link to="/">123</Link></td>
-                                       <td>
-                                            <button className="btn btn-danger btn-sm active">Delete</button>
+                                       {courseData.map((course, index)=>
+                                       <tr>
+                                            <td>{course.title}</td>
+                                            <td><Link to="/">123</Link></td>
+                                            <td>
+                                            <button className="btn btn-danger btn-sm">Delete</button>
+                                            <Link class="btn btn-success btn-sm ms-2" 
+                                             to="/add-chapter/2">Add Chapter</Link>
                                        </td>
+                                       </tr>   
+                                       )}
                                   </tbody>
                               </table>
 

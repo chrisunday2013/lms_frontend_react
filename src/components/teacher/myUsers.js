@@ -24,11 +24,13 @@ function UserList(){
                                        </tr>
                                   </thead>
                                   <tbody>
-                                       <td><Link to="/">Mike Otori</Link></td>
-                                       <td><Link to="/">Django</Link></td>
-                                       <td>
-                                            <button className="btn btn-danger btn-sm active">Delete</button>
-                                       </td>
+                                      <tr>
+                                            <td><Link to="/">Mike Otori</Link></td>
+                                            <td><Link to="/">Django</Link></td>
+                                            <td>
+                                                    <button className="btn btn-danger btn-sm active">Delete</button>
+                                            </td>
+                                       </tr>
                                   </tbody>
                               </table>
 
