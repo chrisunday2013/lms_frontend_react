@@ -43,6 +43,7 @@ function TeacherCourses(){
                                   <thead>
                                        <tr>
                                            <th>Name</th>
+                                           <th>Image</th>
                                            <th>Total Enrolled</th>
                                            <th>Action</th>
                                        </tr>
@@ -51,12 +52,12 @@ function TeacherCourses(){
                                        {courseData.map((course, index)=>
                                        <tr>
                                             <td>{course.title}</td>
+                                            <td><img src={course.featured_img} width="100" className='rounded' alt={course.title}/></td>
                                             <td><Link to="/">123</Link></td>
                                             <td>
-                                            <button className="btn btn-danger btn-sm">Delete</button>
-                                            <Link class="btn btn-success btn-sm ms-2" 
-                                             to="/add-chapter/2">Add Chapter</Link>
-                                       </td>
+                                                 <button className="btn btn-danger btn-sm">Delete</button>
+                                                 <Link className="btn btn-success btn-sm ms-2" to={'/add-chapter/' +course.id}>Add Chapter</Link>
+                                             </td>
                                        </tr>   
                                        )}
                                   </tbody>

@@ -5,39 +5,25 @@ import axios from "axios";
 
 const baseUrl='http://127.0.0.1:8000/api';
 
-function AddCourse(){
-    const [cosCat, setCosCat]=useState([]);
-    const [cosData, setCosData]=useState({
-        category:'',
+function AddChapter(){
+    const [chapterData, setChapterData]=useState({
         title:'',
         description:'',
-        featured_img:'',
-        technology:''
+        video:'',
+        remarks:''
     });
-
-    // This fetch categories when page load
-    useEffect(()=>{
-        try{
-            axios.get(baseUrl+'/category/')
-            .then((response)=>{
-                setCosCat(response.data)
-            });    
-        }catch(error){
-            console.log(error);
-        }
-    },[]);
 
   // change value of element
   const handleChange=(event)=>{
-    setCosData({
-        ...cosData,
+    setChapterData({
+        ...chapterData,
         [event.target.name]:event.target.value
     });
 }
 
 const handleFileChange=(event)=>{
-    setCosData({
-        ...cosData,
+    setChapterData({
+        ...chapterData,
         [event.target.name]:event.target.files[0]
     })
 } 
@@ -47,22 +33,21 @@ const handleFileChange=(event)=>{
 const submitForm=()=>{
     const _FormData=new FormData();
 
-    _FormData.append("category", cosData.category)
-    _FormData.append("teacher",1);
-    _FormData.append("title", cosData.title)
-    _FormData.append("description", cosData.description)
-    _FormData.append("featured_img", cosData.featured_img, cosData.featured_img.name);
-    _FormData.append("technology", cosData.technology)
+    _FormData.append("course",7);
+    _FormData.append("title", chapterData.title)
+    _FormData.append("description", chapterData.description)
+    _FormData.append("video", chapterData.video, chapterData.video.name);
+    _FormData.append("remarks", chapterData.remarks)
 
     try{
-        axios.post(baseUrl+'/course/', _FormData, {
+        axios.post(baseUrl+'/chapter/', _FormData, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
         })
         .then((response)=>{
             // console.log(response.data);
-            window.location.href='/add-course';
+            window.location.href='/add-chapter/4';
         })
     }catch(error){
         console.log(error);
@@ -79,20 +64,13 @@ const submitForm=()=>{
                 </aside>
                 <section className="col-md-9">
                    <div className="card">    
-                      <h5 className="card-header">Add Course</h5>
+                      <h5 className="card-header">Add Chapter</h5>
                       <div className="card-body">
-                           
-                              <div className="mb-3 row">
-                                    <label for="title" className="form-label">Category</label>
-                                    <select name="category" onChange={handleChange} className="form-control">
-                                        {cosCat.map((category, index)=>{return <option key={index} value={category.id}>{category.title}</option>})}
-
-                                    </select>
-                            </div>
+                       {/* <form>  */}
                             <div className="mb-3 row">
                                     <label for="inputPassword" className="form-label">Title</label>
                                     <div className="col-sm-10">
-                                    <input type="text" onChange={handleChange} name="title" className="form-control" id="inputPassword"/>
+                                    <input type="text" onChange={handleChange} name="title" className="form-control" id="title"/>
                                     </div>
                             </div>
                            
@@ -101,20 +79,21 @@ const submitForm=()=>{
                                 <textarea onChange={handleChange} name="description" className="form-control"></textarea>
                             </div>
                             <div className="mb-3 row">
-                                    <label for="inputPassword" className="form-label">Featured Image</label>
+                                    <label for="inputPassword" className="form-label">Video</label>
                                     <div className="col-sm-10">
-                                    <input type="file" onChange={handleFileChange} name="featured_img" className="form-control" id="inputPassword"/>
+                                    <input type="file" onChange={handleFileChange} name="video" className="form-control" id="video"/>
                                     </div>
                             </div>
                           
                            <div className="mb-3">
-                                <label for="exampleInputPassword1" className="form-label">Technologies</label>
-                                <textarea onChange={handleChange} name="technology" className="form-control"></textarea>
+                                <label for="exampleInputPassword1" className="form-label">Remarks</label>
+                                <textarea onChange={handleChange} placeholder="This video is focused on Beginners" className="form-control"></textarea>
                             </div>
                                     <hr/>
                                     <button type="button" onClick={submitForm} className="btn btn-primary">Submit</button>
 
-                      </div>      
+                           {/* </form>    */}
+                       </div>      
                    </div>      
                 </section>
             </div>
@@ -122,4 +101,4 @@ const submitForm=()=>{
     )
 }
 
-export default AddCourse;
+export default AddChapter;

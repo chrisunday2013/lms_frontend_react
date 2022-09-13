@@ -28,6 +28,7 @@ import TeacherProfile from './teacher/teacherProfile';
 import TeacherChangePassword from './teacher/teacherChangePass';
 import TeacherDetail from './teacher/teacherDetail';
 import TeacherLogout from './teacher/teacherLogout';
+import AddChapter from './teacher/addChaper';
 
 
 
@@ -64,6 +65,7 @@ function Main() {
          <Route path="/all-popularCos" element={<AllPopularCourses/>}/>
          <Route path="/all-popularTeachers" element={<AllPopularTeachers/>}/>
          <Route path="/category/:category_slug" element={<CourseCategory/>}/>
+         <Route path="/add-chapter/:course_id" element={<AddChapter/>}/>
       </Switch>
       <Footer/>
     </div>
