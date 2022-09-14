@@ -3,12 +3,15 @@ import TeacherSideBar from './teacherSideBar';
 import { useState, useEffect } from 'react';
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
+
+
 const baseUrl='http://127.0.0.1:8000/api';
 
 
 function AllChapters(){
     const [courseChapterData, setCourseChapterData]=useState([]);
     const {course_id}=useParams();
+    const [totalCount, setTotalCount] = useState(0);
 
     // fetch courses when page loads
     useEffect(()=>{
@@ -17,11 +20,23 @@ function AllChapters(){
             axios.get(baseUrl+'/course-chapters/'+course_id)
             .then((res)=>{
                 setCourseChapterData(res.data);
+                setTotalCount(res.data.length);
             })
         }catch(error){
             console.log(error);
         }
     },[]);
+
+    const Swal = require('sweetalert2')
+    const handleDelete =() =>{
+        Swal.fire({
+            title: 'Confirm!',
+            text: 'Are you sure you want to delete?',
+            icon: 'info',
+            confirmButtonText: 'Continue',
+            showCancelButton:true
+          })
+    }
 
     return(
          <div className="container mt-4">
@@ -31,7 +46,7 @@ function AllChapters(){
                   </aside>
                   <section className='col-md-9'>
                      <div className='card'>
-                        <h5 className='card-header'>All Chapters</h5>
+                        <h5 className='card-header'>All Chapters ({totalCount})</h5>
                         <div className="card-body">
                         <table className="table table-bordered">
                                   <thead>
@@ -45,7 +60,7 @@ function AllChapters(){
                                   <tbody>
                                        {courseChapterData.map((chapter, index)=>
                                        <tr>
-                                            <td><Link to='#'>{chapter.title}</Link></td>
+                                            <td><Link to={'/edit-chapter'  +chapter.id}>{chapter.title}</Link></td>
                                             <td>
                                                 <video controls width="250">
                                                     <source src={chapter.video.url} type="video/webm"/>
@@ -58,8 +73,8 @@ function AllChapters(){
                                             <td>{chapter.remarks}</td>
                                             <td>
 
-                                                 <button className="btn btn-danger">Delete</button>
-                                                 <button className="btn btn-info btn-sm-l">Edit</button>
+                                                 <Link to={'/edit-chapter'  +chapter.id} className="btn btn-sm text-white btn-info "><i class="bi bi-pencil-square"></i></Link>
+                                                 <button onClick={handleDelete} className="btn btn-sm btn-danger btn-sm-l"><i class="bi bi-trash"></i></button>
 
                                              </td>
                                        </tr>   
