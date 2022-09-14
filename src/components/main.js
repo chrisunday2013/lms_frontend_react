@@ -29,6 +29,7 @@ import TeacherChangePassword from './teacher/teacherChangePass';
 import TeacherDetail from './teacher/teacherDetail';
 import TeacherLogout from './teacher/teacherLogout';
 import AddChapter from './teacher/addChaper';
+import AllChapters from './teacher/allChapters';
 
 
 
@@ -51,7 +52,6 @@ function Main() {
          <Route path="/profile" element={<Profile/>}/>
          <Route path="/change-pwd" element={<ChangePassword/>}/>
          <Route path="/teacher-register" element={<TeacherReg/>}/>
-         <Route path="/teacher-login" element={<TeacherLogin/>}/>
          <Route path="/teacher-dashboard" element={<TeacherDashboard/>}/>
          <Route path="/teacher-coses" element={<TeacherCourses/>}/>
          <Route path="/add-course" element={<AddCourse/>}/>
@@ -62,6 +62,7 @@ function Main() {
          <Route path="/teacher-logout" element={<TeacherLogout/>}/>
          <Route path="/teacher-detail/:teacher_id" element={<TeacherDetail/>}/>
          <Route path="/all-courses" element={<AllCourses/>}/>
+         <Route path="/all-chapters/:course_id" element={<AllChapters/>}/>
          <Route path="/all-popularCos" element={<AllPopularCourses/>}/>
          <Route path="/all-popularTeachers" element={<AllPopularTeachers/>}/>
          <Route path="/category/:category_slug" element={<CourseCategory/>}/>

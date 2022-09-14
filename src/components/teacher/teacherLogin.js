@@ -12,6 +12,8 @@ function TeacherLogin(){
         password:''
         
     })
+
+
     const handleChange=(event)=>{
         setteacherLoginData({
             ...teacherLoginData,[event.target.name]:event.target.value
@@ -19,7 +21,7 @@ function TeacherLogin(){
     }
 
     const submitForm=()=>{
-        const teacherFormData=new FormData;
+        const teacherFormData=new FormData();
         teacherFormData.append('email', teacherLoginData.email)
         teacherFormData.append('password', teacherLoginData.password)
 
@@ -40,7 +42,7 @@ function TeacherLogin(){
     }
 
     const teacherLoginStatus=localStorage.getItem('teacherLoginStatus')
-    if(teacherLoginStatus=='true'){
+    if(teacherLoginStatus==='true'){
         window.location.href='/teacher-dashboard'
     }
 
@@ -54,6 +56,7 @@ function TeacherLogin(){
                     <div className="card">
                         <h5 className="card-header">Teacher Login</h5>
                         <div className="card-body">
+                            
                            {/* <form> */}
                                 <div className="mb-3">
                                     <label for="exampleInputEmail1" className="form-label">Email</label>

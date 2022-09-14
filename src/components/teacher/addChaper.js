@@ -1,6 +1,7 @@
 import TeacherSideBar from "./teacherSideBar";
 import {useState, useEffect} from 'react';
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 
 const baseUrl='http://127.0.0.1:8000/api';
@@ -29,11 +30,13 @@ const handleFileChange=(event)=>{
 } 
 //End
 
+const {course_id}=useParams()
+
 // Submit Form
 const submitForm=()=>{
     const _FormData=new FormData();
-
-    _FormData.append("course",7);
+   
+    _FormData.append("course",course_id);
     _FormData.append("title", chapterData.title)
     _FormData.append("description", chapterData.description)
     _FormData.append("video", chapterData.video, chapterData.video.name);
@@ -87,7 +90,7 @@ const submitForm=()=>{
                           
                            <div className="mb-3">
                                 <label for="exampleInputPassword1" className="form-label">Remarks</label>
-                                <textarea onChange={handleChange} placeholder="This video is focused on Beginners" className="form-control"></textarea>
+                                <textarea onChange={handleChange} name="remarks" placeholder="This video is focused on Beginners" className="form-control"></textarea>
                             </div>
                                     <hr/>
                                     <button type="button" onClick={submitForm} className="btn btn-primary">Submit</button>

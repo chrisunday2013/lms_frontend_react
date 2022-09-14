@@ -36,7 +36,7 @@ function TeacherCourses(){
                    <TeacherSideBar/>
                 </aside>
                 <section className="col-md-9">
-                     <div className="card">
+                                <div className="card">
                           <h5 className="card-header">My Courses</h5>
                           <div className="card-body">
                               <table className="table table-bordered">
@@ -51,7 +51,7 @@ function TeacherCourses(){
                                   <tbody>
                                        {courseData.map((course, index)=>
                                        <tr>
-                                            <td>{course.title}</td>
+                                            <td><Link to={'/all-chapters/' +course.id}>{course.title}</Link></td>
                                             <td><img src={course.featured_img} width="100" className='rounded' alt={course.title}/></td>
                                             <td><Link to="/">123</Link></td>
                                             <td>
