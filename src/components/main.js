@@ -31,6 +31,7 @@ import TeacherLogout from './teacher/teacherLogout';
 import AddChapter from './teacher/addChaper';
 import AllChapters from './teacher/allChapters';
 import EditChapter from './teacher/editChapter';
+import EditCourse from './teacher/editCourse';
 
 
 
@@ -64,6 +65,7 @@ function Main() {
          <Route path="/teacher-logout" element={<TeacherLogout/>}/>
          <Route path="/teacher-detail/:teacher_id" element={<TeacherDetail/>}/>
          <Route path="/all-courses" element={<AllCourses/>}/>
+         <Route path="/edit-course/:course_id" element={<EditCourse/>}/>
          <Route path="/all-chapters/:course_id" element={<AllChapters/>}/>
          <Route path="/edit-chapter/:chapter_id" element={<EditChapter/>}/>
          <Route path="/all-popularCos" element={<AllPopularCourses/>}/>

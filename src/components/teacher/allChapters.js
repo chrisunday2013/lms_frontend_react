@@ -70,7 +70,7 @@ function AllChapters(){
                   </aside>
                   <section className='col-md-9'>
                      <div className='card'>
-                        <h5 className='card-header'>All Chapters ({totalCount})</h5>
+                        <h5 className='card-header'>All Chapters ({totalCount})<Link className='btn btn-success btn-sm float-end' to={'/add-chapter/'+course_id}>Add Chapter</Link></h5>
                         <div className="card-body">
                         <table className="table table-bordered">
                                   <thead>

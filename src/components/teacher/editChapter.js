@@ -118,15 +118,18 @@ useEffect(()=>{
                         </div>
                         <div className="mb-3 row">
                             <label for="video" className="form-label">Video</label>
-                                    <input type="file" onChange={handleFileChange} className="form-control" id="video"/>
-                                    <video controls width="100%" height="240" className="mt-2">
-                                        <source src={chapterData.prev_video} type="video/mp4"/>
-                                    </video>
-                        </div>
+                                    <input type="file" onChange={handleFileChange} name="video" className="form-control" id="video"/>
+                                    {chapterData.prev_video &&
+                                        <video controls width="100%" height="240" className="mt-2">
+                                            <source src={chapterData.prev_video} type="video/mp4"/>
+                                        </video>
+                                    }
+                        </div>    
                       
                        <div className="mb-3">
                             <label for="remarks" className="form-label">Remarks</label>
-                            <textarea value={chapterData.remarks} onChange={handleChange} name="remarks" placeholder="This video is focused on Beginners" className="form-control"></textarea>
+                            <textarea value={chapterData.remarks} onChange={handleChange} name="remarks" 
+                            placeholder="This video is focused on Beginners" className="form-control"></textarea>
                         </div>
                                 <hr/>
                             <button type="button" onClick={submitForm} className="btn btn-primary">Submit</button>
