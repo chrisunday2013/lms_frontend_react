@@ -1,22 +1,44 @@
 import {useParams} from 'react-router-dom';
 import {Link} from 'react-router-dom';
+import axios from "axios";
+import {useState, useEffect} from 'react';
 
+
+const baseUrl='http://127.0.0.1:8000/api';
 
 
 function CourseDetail(){
-    let {course_id}=useParams();
+    const [courseData, setCourseData]=useState([]);
+    const [chapterData, setChapterData]=useState([]);
+    const [teacherData, setTeacherData]=useState([]);
+
+    const {course_id}=useParams();
+
+      // fetch courses when page loads
+      useEffect(()=>{
+
+        try{
+            axios.get(baseUrl+'/course/'+course_id)
+            .then((res)=>{
+                setCourseData(res.data);
+                setTeacherData(res.data.teacher);
+                setChapterData(res.data.course_chapters);
+            })
+        }catch(error){
+            console.log(error);
+        }
+    },[]);
+
     return (
         <div className="container mt-3">
              <div className="row">
                     <div className="col-4">
-                        <img src="/logo192.png" className="img-thumbnail" alt="Course Image"/>
+                        <img src={courseData.featured_img} className="img-thumbnail" alt={courseData.title}/>
                     </div>
                     <div className="col-8">
-                         <h3>Course Title</h3>
-                         <p>Cards include a few options for working with images. Choose from appending 
-                            “image caps” at either end of a card,
-                             overlaying images with card content, or simply embedding the image in a card.</p>
-                             <p className="fw-bold">Course By: <Link to="/teacher-detail/1">Teacher 1</Link></p>
+                         <h3>{courseData.title}</h3>
+                         <p>{courseData.description}</p>
+                             <p className="fw-bold">Course By: <Link to="/teacher-detail/1">{teacherData.full_name}</Link></p>
                              <p className="fw-bold">Duration: 3 Hours 30 Minutes</p>
                              <p className="fw-bold">Total Enrolled: 20 Students</p>
                              <p className="fw-bold">Rating: 4.5/5</p>
@@ -28,37 +50,8 @@ function CourseDetail(){
                         Course Videos
                     </h5>
                     <ul className="list-group list-group-flush">
-                        <li className="list-group-item">Introduction 
-                            <span className="float-end">
-                                <span className="me-5">1 Hour 30 Minutes</span>
-                                 <button className="btn btn-sm btn-danger float-end"><i className="bi-youtube"></i></button>
-                            </span>
-                        </li>
-                        <li className="list-group-item">Introduction 
-                            <span className="float-end">
-                                 <span className="me-5">1 Hour 30 Minutes</span>
-                                 <button className="btn btn-sm btn-danger float-end"><i className="bi-youtube"></i></button>
-                            </span>
-                        </li>
-                        <li className="list-group-item">Introduction 
-                            <span className="float-end">
-                                 <span className="me-5">1 Hour 30 Minutes</span>
-                                 <button className="btn btn-sm btn-danger float-end"><i className="bi-youtube"></i></button>
-                            </span>
-                        </li>
-                        <li className="list-group-item">Introduction 
-                            <span className="float-end">
-                                 <span className="me-5">1 Hour 30 Minutes</span>
-                                 <button className="btn btn-sm btn-danger float-end"><i className="bi-youtube"></i></button>
-                            </span>
-                        </li>
-                        <li className="list-group-item">Introduction 
-                            <span className="float-end">
-                                 <span className="me-5">1 Hour 30 Minutes</span>
-                                 <button className="btn btn-sm btn-danger float-end"><i className="bi-youtube"></i></button>
-                            </span>
-                        </li>
-                        <li className="list-group-item">Introduction 
+                       {chapterData.map((chapter,index)=>
+                        <li className="list-group-item">{chapter.title}
                             <span className="float-end">
                                  <span className="me-5">1 Hour 30 Minutes</span>
                                  <button className="btn btn-sm btn-danger float-end" data-bs-toggle="modal" data-bs-target="#videoModal1"><i className="bi-youtube"></i></button>
@@ -74,7 +67,7 @@ function CourseDetail(){
                                     </div>
                                     <div className="modal-body">
                                         <div className="ratio ratio-16x9">
-                                            <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" title="YouTube video" allowfullscreen></iframe>
+                                            <iframe src={chapter.video} title={chapter.title} allowfullscreen></iframe>
                                             </div>
                                         </div>
                                    
@@ -85,7 +78,7 @@ function CourseDetail(){
                             {/* end video modal*/}
                              
                         </li>
-                        
+                        )}
                     </ul>
               </div>
 
