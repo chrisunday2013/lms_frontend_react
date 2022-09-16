@@ -28,14 +28,38 @@ function AllChapters(){
     },[]);
 
     const Swal = require('sweetalert2')
-    const handleDelete =() =>{
+    const handleDelete =(chapter_id) =>{
         Swal.fire({
             title: 'Confirm!',
             text: 'Are you sure you want to delete?',
             icon: 'info',
             confirmButtonText: 'Continue',
             showCancelButton:true
-          })
+          }).then((result)=>{
+             if(result.isConfirmed){
+                try{
+                    axios.delete(baseUrl+'/chapter/'+chapter_id)
+                    .then((res)=>{
+                        Swal.fire('success','Data has been deleted.');
+                        try{
+                            axios.get(baseUrl+'/course-chapters/'+course_id)
+                            .then((res)=>{
+                                setCourseChapterData(res.data);
+                                setTotalCount(res.data.length);
+                            })
+                        }catch(error){
+                            console.log(error);
+                        }
+                     
+                    })
+                  
+                }catch(error){
+                    Swal.fire('error', 'Data has not been deleted!!');
+                }
+             }else{
+                Swal.fire('error', 'Data has not been deleted!!');
+             }
+          });
     }
 
     return(
@@ -60,12 +84,12 @@ function AllChapters(){
                                   <tbody>
                                        {courseChapterData.map((chapter, index)=>
                                        <tr>
-                                            <td><Link to={'/edit-chapter'  +chapter.id}>{chapter.title}</Link></td>
+                                            <td><Link to={'/edit-chapter/'+chapter.id}>{chapter.title}</Link></td>
                                             <td>
                                                 <video controls width="250">
-                                                    <source src={chapter.video.url} type="video/webm"/>
+                                                    <source src={chapter.video} type="video/webm"/>
 
-                                                        <source src={chapter.video.url} type="video/mp4"/>
+                                                        <source src={chapter.video} type="video/mp4"/>
 
                                                 </video>
 
@@ -73,8 +97,8 @@ function AllChapters(){
                                             <td>{chapter.remarks}</td>
                                             <td>
 
-                                                 <Link to={'/edit-chapter'  +chapter.id} className="btn btn-sm text-white btn-info "><i class="bi bi-pencil-square"></i></Link>
-                                                 <button onClick={handleDelete} className="btn btn-sm btn-danger btn-sm-l"><i class="bi bi-trash"></i></button>
+                                                 <Link to={'/edit-chapter/'+chapter.id} className="btn btn-sm text-white btn-info "><i class="bi bi-pencil-square"></i></Link>
+                                                 <button onClick={()=>handleDelete(chapter.id)} className="btn btn-sm btn-danger btn-sm-l"><i class="bi bi-trash"></i></button>
 
                                              </td>
                                        </tr>   

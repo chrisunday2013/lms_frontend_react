@@ -30,11 +30,13 @@ import TeacherDetail from './teacher/teacherDetail';
 import TeacherLogout from './teacher/teacherLogout';
 import AddChapter from './teacher/addChaper';
 import AllChapters from './teacher/allChapters';
+import EditChapter from './teacher/editChapter';
 
 
 
 
 import {Routes as Switch, Route} from 'react-router-dom';
+
 
 function Main() {
   return (
@@ -63,6 +65,7 @@ function Main() {
          <Route path="/teacher-detail/:teacher_id" element={<TeacherDetail/>}/>
          <Route path="/all-courses" element={<AllCourses/>}/>
          <Route path="/all-chapters/:course_id" element={<AllChapters/>}/>
+         <Route path="/edit-chapter/:chapter_id" element={<EditChapter/>}/>
          <Route path="/all-popularCos" element={<AllPopularCourses/>}/>
          <Route path="/all-popularTeachers" element={<AllPopularTeachers/>}/>
          <Route path="/category/:category_slug" element={<CourseCategory/>}/>
