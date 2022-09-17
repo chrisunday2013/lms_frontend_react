@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import axios from "axios";
 import {useState, useEffect} from 'react';
 
-
+const siteUrl='http://127.0.0.1:8000/';
 const baseUrl='http://127.0.0.1:8000/api';
 
 
@@ -11,6 +11,7 @@ function CourseDetail(){
     const [courseData, setCourseData]=useState([]);
     const [chapterData, setChapterData]=useState([]);
     const [teacherData, setTeacherData]=useState([]);
+    const [relatedCosData, setRelatedCosData]=useState([]);
 
     const {course_id}=useParams();
 
@@ -23,11 +24,14 @@ function CourseDetail(){
                 setCourseData(res.data);
                 setTeacherData(res.data.teacher);
                 setChapterData(res.data.course_chapters);
+                setRelatedCosData(JSON.parse(res.data.related_videos));
             })
         }catch(error){
             console.log(error);
         }
     },[]);
+
+    console.log(relatedCosData);
 
     return (
         <div className="container mt-3">
@@ -39,6 +43,7 @@ function CourseDetail(){
                          <h3>{courseData.title}</h3>
                          <p>{courseData.description}</p>
                              <p className="fw-bold">Course By: <Link to="/teacher-detail/1">{teacherData.full_name}</Link></p>
+                             <p className="fw-bold">Technology: {courseData.technology}</p>
                              <p className="fw-bold">Duration: 3 Hours 30 Minutes</p>
                              <p className="fw-bold">Total Enrolled: 20 Students</p>
                              <p className="fw-bold">Rating: 4.5/5</p>
@@ -47,7 +52,7 @@ function CourseDetail(){
             
                 <div className="card mt-4">
                     <h5 className="card-header">
-                        Course Videos
+                        Course Content
                     </h5>
                     <ul className="list-group list-group-flush">
                        {chapterData.map((chapter,index)=>
@@ -84,22 +89,16 @@ function CourseDetail(){
 
               <h3 className="pb-1 mb-4 mt-5">Related Courses <a href="#" className="float-end">See All</a></h3>
               <div className="row mb-4">
-                    <div className="col-md-3">
-                    <div className="card">
-                        <Link to="/detail/1"><img src="/logo192.png" className="card-img-top" alt="..."/></Link>
-                            <div className="card-body">
-                                <h5 className="card-title"><Link to="/detail/1">Course title</Link></h5>
+                    {relatedCosData.map((related,index)=>
+                        <div className="col-md-3">
+                            <div className="card">
+                                <Link target="__blank" to={`/detail/${related.pk}`}><img src={`${siteUrl}media/${related.fields.featured_img}`} className="card-img-top" alt={related.fields.title}/></Link>
+                                    <div className="card-body">
+                                        <h5 className="card-title"><Link to={`/detail/${related.pk}`}>{related.fields.title}</Link></h5>
+                                    </div>
                             </div>
-                    </div>
-                    </div>
-                    <div className="col-md-3">
-                    <div className="card">
-                        <a href="#"><img src="/logo192.png" className="card-img-top" alt="..."/></a>
-                            <div className="card-body">
-                                <h5 className="card-title"><a href="#">Course title</a></h5>
-                            </div>
-                    </div>
-              </div>
+                        </div>
+                    )}
            </div>
         </div>
     )
