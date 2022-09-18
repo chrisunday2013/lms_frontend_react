@@ -12,6 +12,7 @@ function CourseDetail(){
     const [chapterData, setChapterData]=useState([]);
     const [teacherData, setTeacherData]=useState([]);
     const [relatedCosData, setRelatedCosData]=useState([]);
+    const [techListData, setTechListData]=useState([]);
 
     const {course_id}=useParams();
 
@@ -25,6 +26,7 @@ function CourseDetail(){
                 setTeacherData(res.data.teacher);
                 setChapterData(res.data.course_chapters);
                 setRelatedCosData(JSON.parse(res.data.related_videos));
+                setTechListData(res.data.tech_list);
             })
         }catch(error){
             console.log(error);
@@ -43,7 +45,13 @@ function CourseDetail(){
                          <h3>{courseData.title}</h3>
                          <p>{courseData.description}</p>
                              <p className="fw-bold">Course By: <Link to={`/teacher-detail/${teacherData.id}`}>{teacherData.full_name}</Link></p>
-                             <p className="fw-bold">Technology: {courseData.technology}</p>
+                             <p className="fw-bold">Technology:&nbsp;
+                                {techListData.map((tech, index)=>
+                                <>
+                                    <Link to={`/category/${tech.trim()}`} className='badge badge-pill text-dark bg-warning'>{tech}</Link>&nbsp;
+                                </>
+                                )}
+                             </p>
                              <p className="fw-bold">Duration: 3 Hours 30 Minutes</p>
                              <p className="fw-bold">Total Enrolled: 20 Students</p>
                              <p className="fw-bold">Rating: 4.5/5</p>
