@@ -63,7 +63,7 @@ function Main() {
          <Route path="/teacher-change-pwd" element={<TeacherChangePassword/>}/>
          <Route path="/teacher-login" element={<TeacherLogin/>}/>
          <Route path="/teacher-logout" element={<TeacherLogout/>}/>
-         <Route path="/teacher-detail/:teacher_id" element={<TeacherDetail/>}/>
+         <Route path="/teacher-detail/:id" element={<TeacherDetail/>}/>
          <Route path="/all-courses" element={<AllCourses/>}/>
          <Route path="/edit-course/:course_id" element={<EditCourse/>}/>
          <Route path="/all-chapters/:course_id" element={<AllChapters/>}/>
