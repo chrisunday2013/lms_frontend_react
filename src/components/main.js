@@ -18,6 +18,7 @@ import AllPopularTeachers from './allPopularTeacher';
 import CourseCategory from './CourseCategory';
 
 
+import TeacherSkillCourse from './teacher/teacherSkillCoses';
 import TeacherLogin from './teacher/teacherLogin';
 import TeacherReg from './teacher/teacherRegister';
 import TeacherDashboard from './teacher/teacherDash';
@@ -72,6 +73,7 @@ function Main() {
          <Route path="/all-popularTeachers" element={<AllPopularTeachers/>}/>
          <Route path="/category/:category_slug" element={<CourseCategory/>}/>
          <Route path="/add-chapter/:course_id" element={<AddChapter/>}/>
+         <Route path="/teacher-skill-courses/:skill_name/:teacher_id" element={<TeacherSkillCourse/>}/>
       </Switch>
       <Footer/>
     </div>
