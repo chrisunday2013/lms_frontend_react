@@ -1,6 +1,4 @@
 import {useEffect, useState} from 'react';
-
-
 import axios from 'axios';
 
 
@@ -12,7 +10,10 @@ function TeacherLogin(){
         password:''
         
     })
-
+     
+    
+    const [errorMsg, setErrorMsg]=useState('');  
+  
 
     const handleChange=(event)=>{
         setteacherLoginData({
@@ -29,10 +30,12 @@ function TeacherLogin(){
             axios.post(baseUrl+'/teacher-login', teacherFormData)
             .then((response)=>{
                 // console.log(response.data);
-                if(response.data.bool=true){
+                if(response.data.bool===true){
                     localStorage.setItem('teacherLoginStatus', true);
                     localStorage.setItem('teacherId', response.data.teacher_id);
                     window.location.href='/teacher-dashboard';
+                }else{
+                    setErrorMsg('Invalid Email Or Password')
                 }
 
             })
@@ -49,11 +52,13 @@ function TeacherLogin(){
     useEffect(()=>{
         document.title='Teacher Login'
     });
+
     return (
         <div className="container mt-4">
             <div className="row">
                 <div className="col-6 offset-3">
                     <div className="card">
+                    {errorMsg && <p className="text-danger">{errorMsg}</p>}
                         <h5 className="card-header">Teacher Login</h5>
                         <div className="card-body">
                             

@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom';
 
 function Header(){
     const teacherLoginStatus=localStorage.getItem('teacherLoginStatus')
+    const studentLoginStatus=localStorage.getItem('studentLoginStatus')
    
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -20,15 +21,18 @@ function Header(){
                                 Teacher
                             </a>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                {teacherLoginStatus != 'true' &&
+                                {teacherLoginStatus !== 'true' &&
                                 <>
                                 <li><Link className="dropdown-item" to="/teacher-login">Login</Link></li>
                                 <li><Link className="dropdown-item" to="/teacher-register">Register</Link></li>
                                 </>
                                  }
-                                <li><hr className="dropdown-divider"/></li>
+                                 {teacherLoginStatus=== 'true' &&
+                                 <>
                                 <li><Link className="dropdown-item" to="/teacher-dashboard">Dashboard</Link></li>
                                 <li><Link className="dropdown-item" to="/teacher-logout">Logout</Link></li>
+                                </>
+                                }
                             </ul>
                             </li>
 
@@ -38,16 +42,21 @@ function Header(){
                                 User
                             </a>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {studentLoginStatus !== 'true' &&
+                              <>
                                 <li><Link className="dropdown-item" to="/user-login">Login</Link></li>
                                 <li><Link className="dropdown-item" to="/user-register">Register</Link></li>
-                                <li><hr className="dropdown-divider"/></li>
-                                <li><Link className="dropdown-item" to="/user-dashboard">Dashboard</Link></li>
-                                <li><Link className="dropdown-item" to="/user-logout">Logout</Link></li>
+                              </>    
+                            }
+                            {studentLoginStatus==='true' &&
+                                <>
+                                <li><Link className="dropdown-item" to="/student-dashboard">Dashboard</Link></li>
+                                <li><Link className="dropdown-item" to="/student-logout">Logout</Link></li>
+                                </>
+                            }
                             </ul>
-                            </li>
+                        </li>
                           
-                       
-                       
                     </div>
                 </div>
             </div>

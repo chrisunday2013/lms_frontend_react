@@ -3,6 +3,7 @@ import Home from './home';
 import Footer from './footer';
 import CourseDetail from './courseDetail';
 import Login from './user/login';
+import StudentLogout from './user/logout';
 import Register from './user/register';
 import Dashboard from './user/dashboard';
 import MyCourses from './myCourses';
@@ -48,8 +49,9 @@ function Main() {
          <Route path="/" element={<Home/>}/>
          <Route path="/detail/:course_id" element={<CourseDetail/>}/>
          <Route path="/user-login" element={<Login/>}/>
+         <Route path="/student-logout" element={<StudentLogout/>}/>
          <Route path="/user-register" element={<Register/>}/>
-         <Route path="/user-dashboard" element={<Dashboard/>}/>
+         <Route path="/student-dashboard" element={<Dashboard/>}/>
          <Route path="/my-courses" element={<MyCourses/>}/>
          <Route path="/favorite" element={<FavoriteCoses/>}/>
          <Route path="/recommended" element={<RecommendedCoses/>}/>
