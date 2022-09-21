@@ -4,6 +4,7 @@ import Footer from './footer';
 import CourseDetail from './courseDetail';
 import Login from './user/login';
 import StudentLogout from './user/logout';
+import EnrolledStudents from './user/enrolledStudents';
 import Register from './user/register';
 import Dashboard from './user/dashboard';
 import MyCourses from './myCourses';
@@ -71,6 +72,7 @@ function Main() {
          <Route path="/edit-course/:course_id" element={<EditCourse/>}/>
          <Route path="/all-chapters/:course_id" element={<AllChapters/>}/>
          <Route path="/edit-chapter/:chapter_id" element={<EditChapter/>}/>
+         <Route path="/enrolled-student/:course_id" element={<EnrolledStudents/>}/>
          <Route path="/all-popularCos" element={<AllPopularCourses/>}/>
          <Route path="/all-popularTeachers" element={<AllPopularTeachers/>}/>
          <Route path="/category/:category_slug" element={<CourseCategory/>}/>
