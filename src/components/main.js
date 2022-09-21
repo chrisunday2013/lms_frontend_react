@@ -49,9 +49,9 @@ function Main() {
          <Route path="/" element={<Home/>}/>
          <Route path="/detail/:course_id" element={<CourseDetail/>}/>
          <Route path="/user-login" element={<Login/>}/>
-         <Route path="/student-logout" element={<StudentLogout/>}/>
+         <Route path="/user-logout" element={<StudentLogout/>}/>
          <Route path="/user-register" element={<Register/>}/>
-         <Route path="/student-dashboard" element={<Dashboard/>}/>
+         <Route path="/user-dashboard" element={<Dashboard/>}/>
          <Route path="/my-courses" element={<MyCourses/>}/>
          <Route path="/favorite" element={<FavoriteCoses/>}/>
          <Route path="/recommended" element={<RecommendedCoses/>}/>

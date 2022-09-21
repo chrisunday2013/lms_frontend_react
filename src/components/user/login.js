@@ -21,7 +21,6 @@ function Login(){
         });
     }
 
-    
     const submitForm=()=>{
         const studentFormData=new FormData();
         studentFormData.append('email', studentLoginData.email)
@@ -62,6 +61,7 @@ function Login(){
                         {errorMsg && <p className="text-danger">{errorMsg}</p>}
                         <h5 className="card-header">User Login</h5>
                         <div className="card-body">
+                            {errorMsg && <p className="text-danger">{errorMsg}</p>}
                            {/* <form> */}
                                 <div className="mb-3">
                                     <label for="exampleInputEmail1" className="form-label">Email</label>

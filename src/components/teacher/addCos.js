@@ -45,14 +45,15 @@ const handleFileChange=(event)=>{
 
 // Submit Form
 const submitForm=()=>{
+    const teacherId=localStorage.getItem('teacherId');
     const _FormData=new FormData();
-
-    _FormData.append("category", cosData.category)
-    _FormData.append("teacher",1);
-    _FormData.append("title", cosData.title)
-    _FormData.append("description", cosData.description)
+   
+    _FormData.append("category", cosData.category);
+    _FormData.append("teacher",teacherId);
+    _FormData.append("title", cosData.title);
+    _FormData.append("description", cosData.description);
     _FormData.append("featured_img", cosData.featured_img, cosData.featured_img.name);
-    _FormData.append("technology", cosData.technology)
+    _FormData.append("technology", cosData.technology);
 
     try{
         axios.post(baseUrl+'/course/', _FormData, {

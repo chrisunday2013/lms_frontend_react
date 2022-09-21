@@ -2,6 +2,8 @@ import {useParams} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import axios from "axios";
 import {useState, useEffect} from 'react';
+import Swal from 'sweetalert2';
+
 
 const siteUrl='http://127.0.0.1:8000/';
 const baseUrl='http://127.0.0.1:8000/api';
@@ -13,9 +15,13 @@ function CourseDetail(){
     const [teacherData, setTeacherData]=useState([]);
     const [relatedCosData, setRelatedCosData]=useState([]);
     const [techListData, setTechListData]=useState([]);
+    const [userLoginStatus, setUserLoginStatus]=useState();
+    const [enrolledStatus, setEnrolledStatus]=useState();
 
+
+    const studentId=localStorage.getItem('studentId');
     const {course_id}=useParams();
-
+    
       // fetch courses when page loads
       useEffect(()=>{
 
@@ -31,10 +37,63 @@ function CourseDetail(){
         }catch(error){
             console.log(error);
         }
+
+
+        // Fetch enroll status
+        try{
+            axios.get(baseUrl+'/fetchEnroll-status/'+studentId+'/'+course_id)
+            .then((res)=>{
+               console.log(res);
+               if(res.data.bool===true){
+                   setEnrolledStatus('success')
+                }
+            })
+        }catch(error){
+            console.log(error);
+        }
+
+        const studentLoginStatus=localStorage.getItem('studentLoginStatus')
+        if(studentLoginStatus==='true'){
+              setUserLoginStatus('success')
+        }
     },[]);
 
     console.log(relatedCosData);
 
+
+    const enrollCourse=()=>{
+        
+        const _FormData=new FormData();
+    
+        _FormData.append("course", course_id);
+        _FormData.append("student",studentId);
+       
+        try{
+            axios.post(baseUrl+'/studentCourse-enrolled/', _FormData, {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            })
+            .then((response)=>{
+                console.log(response.data);
+                if(response.status===200||response.status===201){
+                    Swal.fire({
+                        title: 'Yoy have successfully enrolled in this course',
+                        icon: 'success',
+                        toast:true,
+                        timer:1000,
+                        position:'top-right',
+                        timerProgressBar:true,
+                        showConfirmButton: false
+                    });
+                    setEnrolledStatus('success')
+                }
+            });
+        }catch(error){
+            console.log(error);
+        }
+
+    }
     return (
         <div className="container mt-3">
              <div className="row">
@@ -55,9 +114,20 @@ function CourseDetail(){
                              <p className="fw-bold">Duration: 3 Hours 30 Minutes</p>
                              <p className="fw-bold">Total Enrolled: 20 Students</p>
                              <p className="fw-bold">Rating: 4.5/5</p>
-                    </div>
-             </div>
-            
+                             {enrolledStatus  === 'success' &&  userLoginStatus === 'success' &&
+                              <p><span>You are already enrolled in this course</span></p>
+                             }
+                              { userLoginStatus === 'success' && enrolledStatus !=='success' &&
+                              <p><button onClick={enrollCourse} type="button" className="btn btn-success">Enroll for this course</button></p>
+                               
+                             }
+                             { userLoginStatus !== 'success' &&
+                                <p><Link to="/user-login">Login to enrol for this course</Link></p>
+                             }
+                     </div>
+               </div>
+                
+               {enrolledStatus  === 'success' &&  userLoginStatus === 'success' &&
                 <div className="card mt-4">
                     <h5 className="card-header">
                         Course Content
@@ -93,10 +163,12 @@ function CourseDetail(){
                         </li>
                         )}
                     </ul>
-              </div>
+                </div>
 
-              <h3 className="pb-1 mb-4 mt-5">Related Courses <a href="#" className="float-end">See All</a></h3>
-              <div className="row mb-4">
+                }
+
+              <h3 className="pb-1 mb-4 mt-5">Related Courses</h3>
+              <div className="row">
                     {relatedCosData.map((related,index)=>
                         <div className="col-md-3">
                             <div className="card">
