@@ -2,6 +2,7 @@ import TeacherSideBar from "./teacherSideBar";
 import {useState, useEffect} from 'react';
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const baseUrl='http://127.0.0.1:8000/api';
@@ -43,21 +44,31 @@ const submitForm=()=>{
     _FormData.append("remarks", chapterData.remarks)
 
     try{
-        axios.post(baseUrl+'/chapter/', _FormData, {
+        axios.post(baseUrl+'/chapter/',+course_id, _FormData, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
         })
         .then((response)=>{
             // console.log(response.data);
-            window.location.href='/add-chapter/4';
+            if(response.status===200||response.status===201){
+                  Swal.fire({
+                    title:'Data has been added',
+                    icon: 'success',
+                    toast:true,
+                    timer:3000,
+                    position:'top-right',
+                    timerProgressBar:true,
+                    showConfirmButton: false
+                  })
+               window.location.reload();   
+            }
         })
     }catch(error){
         console.log(error);
     }
 
 };
-
 
     return (
         <div className="container mt-4">

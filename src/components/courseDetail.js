@@ -17,6 +17,8 @@ function CourseDetail(){
     const [techListData, setTechListData]=useState([]);
     const [userLoginStatus, setUserLoginStatus]=useState();
     const [enrolledStatus, setEnrolledStatus]=useState();
+    const [ratingStatus, setRatingStatus]=useState();
+    const [avgStatus, setAvgStatus]=useState(0);
 
 
     const studentId=localStorage.getItem('studentId');
@@ -33,6 +35,8 @@ function CourseDetail(){
                 setChapterData(res.data.course_chapters);
                 setRelatedCosData(JSON.parse(res.data.related_videos));
                 setTechListData(res.data.tech_list);
+                if(res.data.course_rating!= '' && res.data.course_rating!=null)
+                setAvgStatus(res.data.course_rating)
             })
         }catch(error){
             console.log(error);
@@ -51,6 +55,18 @@ function CourseDetail(){
         }catch(error){
             console.log(error);
         }
+        
+        // Fetch rating status
+        try{
+            axios.get(baseUrl+'/fetch-rating-status/'+studentId+'/'+course_id)
+            .then((res)=>{
+               if(res.data.bool===true){
+                setRatingStatus('success')
+                }
+            })
+        }catch(error){
+            console.log(error);
+        }
 
         const studentLoginStatus=localStorage.getItem('studentLoginStatus')
         if(studentLoginStatus==='true'){
@@ -60,7 +76,7 @@ function CourseDetail(){
 
     console.log(relatedCosData);
 
-
+    // Enroll for this course
     const enrollCourse=()=>{
         
         const _FormData=new FormData();
@@ -94,7 +110,55 @@ function CourseDetail(){
         }
 
     }
-    return (
+
+    //Add Rating
+
+    const [ratingData, setRatingData]=useState({
+        rating:'',
+        reviews:''
+    });
+
+  // change value of element
+  const handleChange=(event)=>{
+    setRatingData({
+        ...ratingData,
+        [event.target.name]:event.target.value
+    });
+}
+
+// Submit Form
+const submitForm=()=>{
+    const _FormData=new FormData();
+   
+    _FormData.append("course",course_id);
+    _FormData.append("student", studentId);
+    _FormData.append("rating", ratingData.rating);
+    _FormData.append("reviews", ratingData.reviews);
+
+    try{
+        axios.post(baseUrl+'/course-rating/'+course_id, _FormData,)
+        .then((response)=>{
+            // console.log(response.data);
+            if(response.status==200||response.status==201){
+                  Swal.fire({
+                    title:'Rating has been saved',
+                    icon: 'success',
+                    toast:true,
+                    timer:5000,
+                    position:'top-right',
+                    timerProgressBar:true,
+                    showConfirmButton: false
+                  })
+               window.location.reload();   
+            }
+        })
+    }catch(error){
+        console.log(error);
+    }
+
+};
+
+ return (
         <div className="container mt-3">
              <div className="row">
                     <div className="col-4">
@@ -113,7 +177,50 @@ function CourseDetail(){
                              </p>
                              <p className="fw-bold">Duration: 3 Hours 30 Minutes</p>
                              <p className="fw-bold">Total Enrolled: {courseData.total_enrolled_students} Student(s)</p>
-                             <p className="fw-bold">Rating: 4.5/5</p>
+                             <p className="fw-bold">
+                                Rating:{avgStatus}/5
+                             {enrolledStatus  === 'success' &&  userLoginStatus === 'success' && 
+                              <>  
+                              {ratingStatus!='success' &&    
+                                  <button className="btn btn-success btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#ratingModal">Rating</button>
+                              }      
+
+                              {ratingStatus =='success' &&    
+                                 <small className="badge badge-pill text-dark bg-info ms-2">You already rated this course</small>
+                              }                      
+                                    <div className="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div className="modal-dialog modal-lg">
+                                            <div className="modal-content">
+                                            <div className="modal-header">
+                                                <h5 className="modal-title" id="exampleModalLabel">Rate {courseData.title} course</h5>
+                                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div className="modal-body">
+                                                    <form>
+                                                        <div className="mb-3">
+                                                            <label for="exampleInputEmail1" className="form-label">Rating</label>
+                                                             <select onChange={handleChange} className="form-control" name="rating">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                             </select>
+                                                        </div>
+                                                        <div className="mb-3">
+                                                            <label for="exampleInputPassword1" className="form-label">Reviews</label>
+                                                            <textarea onChange={handleChange} className="form-control" name="reviews" rows="10"></textarea>
+                                                        </div>
+                                                        
+                                                        <button type="button" onClick={submitForm} className="btn btn-primary">Submit</button>
+                                                    </form>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </> 
+                             }
+                                </p>
                              {enrolledStatus  === 'success' &&  userLoginStatus === 'success' &&
                               <p><span>You are already enrolled in this course</span></p>
                              }
