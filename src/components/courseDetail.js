@@ -18,7 +18,7 @@ function CourseDetail(){
     const [userLoginStatus, setUserLoginStatus]=useState();
     const [enrolledStatus, setEnrolledStatus]=useState();
     const [ratingStatus, setRatingStatus]=useState();
-    const [avgStatus, setAvgStatus]=useState(0);
+    const [avgRating, setAvgRating]=useState(0);
 
 
     const studentId=localStorage.getItem('studentId');
@@ -36,7 +36,7 @@ function CourseDetail(){
                 setRelatedCosData(JSON.parse(res.data.related_videos));
                 setTechListData(res.data.tech_list);
                 if(res.data.course_rating!= '' && res.data.course_rating!=null)
-                setAvgStatus(res.data.course_rating)
+                setAvgRating(res.data.course_rating)
             })
         }catch(error){
             console.log(error);
@@ -178,7 +178,7 @@ const submitForm=()=>{
                              <p className="fw-bold">Duration: 3 Hours 30 Minutes</p>
                              <p className="fw-bold">Total Enrolled: {courseData.total_enrolled_students} Student(s)</p>
                              <p className="fw-bold">
-                                Rating:{avgStatus}/5
+                                Rating:{avgRating}/5
                              {enrolledStatus  === 'success' &&  userLoginStatus === 'success' && 
                               <>  
                               {ratingStatus!='success' &&    

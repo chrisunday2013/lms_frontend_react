@@ -10,7 +10,6 @@ const baseUrl='http://127.0.0.1:8000/api';
 function TeacherCourses(){
 
     const [courseData, setCourseData]=useState([]);
-
     const teacherId=localStorage.getItem('teacherId');
     console.log(teacherId);
         
@@ -51,7 +50,16 @@ function TeacherCourses(){
                                   <tbody>
                                        {courseData.map((course, index)=>
                                        <tr>
-                                            <td><Link to={'/all-chapters/' +course.id}>{course.title}</Link></td>
+                                            <td><Link to={'/all-chapters/' +course.id}>{course.title}</Link>
+                                            <hr/>
+                                            {course.course_rating && 
+                                              <span>Rating: {course.course_rating}/5</span>
+                                            }
+                                            {!course.course_rating && 
+                                              <span>Rating: 0/5</span>
+                                            }
+
+                                            </td>
                                             <td><img src={course.featured_img} width="100" className='rounded' alt={course.title}/></td>
                                             <td><Link to={`/enrolled-student/`+course.id}>{course.total_enrolled_students}</Link></td>
                                             <td>
