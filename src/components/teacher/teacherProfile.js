@@ -107,6 +107,8 @@ function TeacherProfile(){
         useEffect(()=>{
             document.title="Teacher Profile"
         },[]);    
+
+        
     return (
         <div className="container mt-4">
             <div className="row">
@@ -118,20 +120,20 @@ function TeacherProfile(){
                       <h5 className="card-header">Profile Setting</h5>
                       <div className="card-body">
                            
-                               <div class="mb-3 row">
-                                    <label for="inputPassword" class="form-label">Full Name</label>
+                               <div className="mb-3 row">
+                                    <label for="inputPassword" className="form-label">Full Name</label>
                                     <div class="col-sm-10">
-                                    <input type="text" value={teacherData.full_name} onChange={handleChange} name="full_name"class="form-control" id="inputPassword"/>
+                                    <input type="text" value={teacherData.full_name} onChange={handleChange} name="full_name"className="form-control" id="inputPassword"/>
                                     </div>
                             </div>
-                            <div class="mb-3 row">
-                                    <label for="inputPassword" class="form-label">Email</label>
+                            <div className="mb-3 row">
+                                    <label for="inputPassword" className="form-label">Email</label>
                                     <div class="col-sm-10">
-                                    <input type="email"value={teacherData.email} onChange={handleChange} name="email" class="form-control" id="inputPassword"/>
+                                    <input type="email"value={teacherData.email} onChange={handleChange} name="email" className="form-control" id="inputPassword"/>
                                     </div>
                             </div>
-                            <div class="mb-3 row">
-                                    <label for="video" class="form-label">Profile Image</label>
+                            <div className="mb-3 row">
+                                    <label for="video" className="form-label">Profile Image</label>
                                     <input type="file" onChange={handleFileChange}  name="profile_img"/>
                                     {teacherData.prev_img &&
                                         <p className="mt-2"><img src={teacherData.prev_img} width="350" alt={teacherData.full_name}/></p>
