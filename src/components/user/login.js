@@ -33,7 +33,7 @@ function Login(){
                 if(response.data.bool===true){
                     localStorage.setItem('studentLoginStatus', true);
                     localStorage.setItem('studentId', response.data.student_id);
-                    window.location.href='/student-dashboard';
+                    window.location.href='/user-dashboard';
                 }else{
                     setErrorMsg('Invalid Email Or Password')
                 }
@@ -46,7 +46,7 @@ function Login(){
     
     const studentLoginStatus=localStorage.getItem('studentLoginStatus')
     if(studentLoginStatus==='true'){
-        window.location.href='/student-dashboard'
+        window.location.href='/user-dashboard'
     }
 
     useEffect(()=>{

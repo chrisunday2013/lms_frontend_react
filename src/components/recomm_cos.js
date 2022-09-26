@@ -1,10 +1,33 @@
-
-
 import SideBar from "./sideBar";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import axios from 'axios';
+import { useState, useEffect } from "react";
+
+
+const baseUrl='http://127.0.0.1:8000/api';
 
 
 function RecommendedCoses(){
+
+const [courseData, setCourseData]=useState([]);
+const studentId=localStorage.getItem('studentId');
+
+//to fetch student went page loads
+useEffect(()=>{
+
+    try{
+        axios.get(baseUrl+'/fetch-Enrolled-courses/'+studentId)
+        .then((res)=>{
+            setCourseData(res.data);
+        })
+    }catch(error){
+        console.log(error);
+    }
+},[]);
+
+console.log(courseData)
+
+
     return (
         <div className="container mt-4">
             <div className="row">
@@ -13,22 +36,22 @@ function RecommendedCoses(){
                 </aside>
                 <section className="col-md-9">
                      <div className="card">
-                          <h5 className="card-header">Recommended Courses</h5>
+                          <h5 className="card-header">My Courses</h5>
                           <div className="card-body">
                               <table className="table table-bordered">
                                   <thead>
                                        <tr>
                                            <th>Name</th>
-                                           <th>Created By</th>
-                                           <th>Action</th>
+                                           <th>technologies</th>
                                        </tr>
                                   </thead>
                                   <tbody>
-                                       <td>Php Development</td>
-                                       <td><Link to="/">Christian</Link></td>
-                                       <td>
-                                            <button className="btn btn-danger btn-sm active">Delete</button>
-                                       </td>
+                                    {courseData.map((row, index) =>
+                                    <tr>
+                                       <td><Link to={`/detail/`+row.course.id}>{row.course.title}</Link></td>
+                                       <td>{row.course.technology}</td>
+                                    </tr>   
+                                    )}
                                   </tbody>
                               </table>
 
