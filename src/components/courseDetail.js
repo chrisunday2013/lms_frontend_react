@@ -19,6 +19,7 @@ function CourseDetail(){
     const [enrolledStatus, setEnrolledStatus]=useState();
     const [ratingStatus, setRatingStatus]=useState();
     const [avgRating, setAvgRating]=useState(0);
+    const [favoriteStatus, setFavoriteStatus]=useState(0);
 
 
     const studentId=localStorage.getItem('studentId');
@@ -68,6 +69,21 @@ function CourseDetail(){
             console.log(error);
         }
 
+        //Fetch enroll status
+
+        try{
+            axios.get(baseUrl+'/fetch-fav-status/'+studentId+'/'+course_id)
+            .then((res)=>{
+               if(res.data.bool===true){
+                setFavoriteStatus('success')
+                }else{
+                    setFavoriteStatus('')
+                }
+            });
+        }catch(error){
+            console.log(error);
+        }
+
         const studentLoginStatus=localStorage.getItem('studentLoginStatus')
         if(studentLoginStatus==='true'){
               setUserLoginStatus('success')
@@ -78,7 +94,6 @@ function CourseDetail(){
 
     // Enroll for this course
     const enrollCourse=()=>{
-        
         const _FormData=new FormData();
     
         _FormData.append("course", course_id);
@@ -97,7 +112,7 @@ function CourseDetail(){
                         title: 'Yoy have successfully enrolled in this course',
                         icon: 'success',
                         toast:true,
-                        timer:1000,
+                        timer:10000,
                         position:'top-right',
                         timerProgressBar:true,
                         showConfirmButton: false
@@ -111,7 +126,79 @@ function CourseDetail(){
 
     }
 
-    //Add Rating
+    
+// Mark as favorite
+const addFavorite=()=>{
+         const _FormData=new FormData();
+       
+        _FormData.append("course",course_id);
+        _FormData.append("student", studentId);
+        _FormData.append("status",true);
+    
+        try{
+            axios.post(baseUrl+'/student-add-fav-course', _FormData,{
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            })
+            .then((response)=>{
+                // console.log(response.data);
+                if(response.status===200||response.status===201){
+                      Swal.fire({
+                        title:'This course has been added in your wish List',
+                        icon: 'success',
+                        toast:true,
+                        timer:5000,
+                        position:'top-right',
+                        timerProgressBar:true,
+                        showConfirmButton: false
+                      })
+                      setFavoriteStatus('success');   
+                }
+            })
+        }catch(error){
+            console.log(error);
+        }
+    
+}
+
+   
+// remove from favorite
+const removeFavorite=(pk)=>{
+    const _FormData=new FormData();
+   
+    _FormData.append("course",course_id);
+    _FormData.append("student", studentId);
+    _FormData.append("status",false);
+
+    try{
+        axios.get(baseUrl+'/student-remove-fav-course/'+course_id+'/'+studentId,{
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        })
+        .then((response)=>{
+            // console.log(response.data);
+            if(response.status===200||response.status===201){
+                  Swal.fire({
+                    title:'This course has been removed from your wish List',
+                    icon: 'success',
+                    toast:true,
+                    timer:5000,
+                    position:'top-right',
+                    timerProgressBar:true,
+                    showConfirmButton: false
+                  })
+                  setFavoriteStatus('');   
+            }
+        })
+    }catch(error){
+        console.log(error);
+    }
+
+}
+
+   //Add Rating
 
     const [ratingData, setRatingData]=useState({
         rating:'',
@@ -126,22 +213,26 @@ function CourseDetail(){
     });
 }
 
-// Submit Form
-const submitForm=()=>{
-    const _FormData=new FormData();
+const formSubmit=()=>{
+
+    const _FormRatingData=new FormData();
    
-    _FormData.append("course",course_id);
-    _FormData.append("student", studentId);
-    _FormData.append("rating", ratingData.rating);
-    _FormData.append("reviews", ratingData.reviews);
+    _FormRatingData.append("course",course_id);
+    _FormRatingData.append("student", studentId);
+    _FormRatingData.append("rating",ratingData.rating);
+    _FormRatingData.append("reviews",ratingData.reviews);
 
     try{
-        axios.post(baseUrl+'/course-rating/'+course_id, _FormData,)
+        axios.post(baseUrl+'/course-rating/', _FormRatingData,{
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        })
         .then((response)=>{
             // console.log(response.data);
-            if(response.status==200||response.status==201){
+            if(response.status===200||response.status===201){
                   Swal.fire({
-                    title:'Rating has been saved',
+                    title:'Rating ha been save',
                     icon: 'success',
                     toast:true,
                     timer:5000,
@@ -149,17 +240,17 @@ const submitForm=()=>{
                     timerProgressBar:true,
                     showConfirmButton: false
                   })
-               window.location.reload();   
+                  window.location.reload();  
             }
         })
     }catch(error){
         console.log(error);
     }
 
-};
+}
 
  return (
-        <div className="container mt-3">
+        <div className="container mt-3 pb-2">
              <div className="row">
                     <div className="col-4">
                         <img src={courseData.featured_img} className="img-thumbnail" alt={courseData.title}/>
@@ -212,7 +303,7 @@ const submitForm=()=>{
                                                             <textarea onChange={handleChange} className="form-control" name="reviews" rows="10"></textarea>
                                                         </div>
                                                         
-                                                        <button type="button" onClick={submitForm} className="btn btn-primary">Submit</button>
+                                                        <button type="button" onClick={formSubmit} className="btn btn-primary">Submit</button>
                                                     </form>
                                               </div>
                                             </div>
@@ -226,6 +317,14 @@ const submitForm=()=>{
                              }
                               { userLoginStatus === 'success' && enrolledStatus !=='success' &&
                               <p><button onClick={enrollCourse} type="button" className="btn btn-success">Enroll for this course</button></p>
+                               
+                             }
+                             { userLoginStatus === 'success' && favoriteStatus !== 'success' &&
+                              <p><button onClick={addFavorite} title="Add to your favorite courses" type="button" className="btn btn-outline-danger"><i className="bi bi-heart-fill"></i></button></p>
+                               
+                             }
+                              { userLoginStatus === 'success' && favoriteStatus === "success" &&
+                              <p><button onClick={removeFavorite} title="Remove from favorite courses" type="button" className="btn btn-danger"><i className="bi bi-heart-fill"></i></button></p>
                                
                              }
                              { userLoginStatus !== 'success' &&
