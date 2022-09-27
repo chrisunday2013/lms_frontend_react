@@ -19,7 +19,7 @@ import AllPopularCourses from './allPopularCourses';
 import AllPopularTeachers from './allPopularTeacher';
 import CourseCategory from './CourseCategory';
 
-
+import AddAssignment from './teacher/addAssignment';
 import TeacherSkillCourse from './teacher/teacherSkillCoses';
 import TeacherLogin from './teacher/teacherLogin';
 import TeacherReg from './teacher/teacherRegister';
@@ -62,6 +62,7 @@ function Main() {
          <Route path="/teacher-dashboard" element={<TeacherDashboard/>}/>
          <Route path="/teacher-coses" element={<TeacherCourses/>}/>
          <Route path="/add-course" element={<AddCourse/>}/>
+         <Route path="/add-assignment/:student_id/:teacher_id" element={<AddAssignment/>}/>
          <Route path="/my-users" element={<UserList/>}/>
          <Route path="/teacher-profile" element={<TeacherProfile/>}/>
          <Route path="/teacher-change-pwd" element={<TeacherChangePassword/>}/>
