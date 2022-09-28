@@ -69,7 +69,7 @@ const submitForm=()=>{
                 </aside>
                 <section className="col-md-9">
                    <div className="card">    
-                      <h5 className="card-header">Add Assigment</h5>
+                      <h5 className="card-header">Add Assignment</h5>
                       <div className="card-body">
                        {/* <form>  */}
                             <div className="mb-3 row">
