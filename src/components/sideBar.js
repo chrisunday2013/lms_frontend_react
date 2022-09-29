@@ -6,7 +6,7 @@ function SideBar(){
     return (
         <div className="card">
             <div className="list-group list-group-flush">
-                <Link to="/student-dashboard" className="list-group-item list-group-item-action">Dashboard</Link>
+                <Link to="/student-dashboard" className="list-group-item list-group-item-action">Student Dashboard</Link>
                 <Link to="/my-courses" className="list-group-item list-group-item-action">My Courses</Link>
                 <Link to="/favorite" className="list-group-item list-group-item-action">Favorite Courses</Link>
                 <Link to="/assignment" className="list-group-item list-group-item-action">Assignments</Link>

@@ -42,7 +42,7 @@ console.log(courseData)
                                   <thead>
                                        <tr>
                                            <th>Name</th>
-                                           <th>Created By</th>
+                                           <th>Teacher</th>
                                        </tr>
                                   </thead>
                                   <tbody>

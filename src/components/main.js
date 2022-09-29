@@ -7,6 +7,7 @@ import StudentLogout from './user/logout';
 import EnrolledStudents from './user/enrolledStudents';
 import Register from './user/register';
 import Dashboard from './user/dashboard';
+import StudentDashboard from './user/dashboard';
 import MyCourses from './myCourses';
 import FavoriteCoses from './favourite_cos';
 import RecommendedCoses from './recomm_cos';
@@ -56,6 +57,7 @@ function Main() {
          <Route path="/user-logout" element={<StudentLogout/>}/>
          <Route path="/user-register" element={<Register/>}/>
          <Route path="/user-dashboard" element={<Dashboard/>}/>
+         <Route path="/student-dashboard" element={<StudentDashboard/>}/>
          <Route path="/my-courses" element={<MyCourses/>}/>
          <Route path="/favorite" element={<FavoriteCoses/>}/>
          <Route path="/recommended" element={<RecommendedCoses/>}/>
