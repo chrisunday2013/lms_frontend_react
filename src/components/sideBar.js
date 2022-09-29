@@ -13,7 +13,7 @@ function SideBar(){
                 <Link to="/recommended" className="list-group-item list-group-item-action">Recommended courses</Link>
                 <Link to="/profile" className="list-group-item list-group-item-action">Profile Setting</Link>
                 <Link to="/change-pwd" className="list-group-item list-group-item-action">Change Password</Link>
-                <Link to="/student-logout" className="list-group-item list-group-item-action text-danger">Logout</Link>
+                <Link to="/user-logout" className="list-group-item list-group-item-action text-danger">Logout</Link>
   
             </div>
         </div>
