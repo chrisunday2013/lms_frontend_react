@@ -52,9 +52,23 @@ const submitForm=()=>{
                     timerProgressBar:true,
                     showConfirmButton: false
                   })
-               window.location.reload();   
+                  // save notification data
+                  const _notifiData=new FormData();
+                  _notifiData.append('teacher',teacher_id); 
+                  _notifiData.append('notification_subject','assignment'); 
+                  _notifiData.append('notification_for','student'); 
+                  _notifiData.append('student',student_id);
+                  axios.post(baseUrl+'/save-notification/',_notifiData,{
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
+                  }) 
+                  .then((res)=>{
+                    console.log('Notification Added');
+                  })
+                  window.location.reload();
             }
-        })
+        });
     }catch(error){
         console.log(error);
     }

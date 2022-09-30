@@ -39,6 +39,7 @@ import AddChapter from './teacher/addChaper';
 import AllChapters from './teacher/allChapters';
 import EditChapter from './teacher/editChapter';
 import EditCourse from './teacher/editCourse';
+import AddQuiz from './teacher/add_quiz';
 
 
 
@@ -86,6 +87,7 @@ function Main() {
          <Route path="/category/:category_slug" element={<CourseCategory/>}/>
          <Route path="/add-chapter/:course_id" element={<AddChapter/>}/>
          <Route path="/teacher-skill-courses/:skill_name/:teacher_id" element={<TeacherSkillCourse/>}/>
+         <Route path="/add-quiz" element={<AddQuiz/>}/>
       </Switch>
       <Footer/>
     </div>
