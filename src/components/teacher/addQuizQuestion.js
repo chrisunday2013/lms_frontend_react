@@ -41,7 +41,7 @@ const submitForm=()=>{
     _FormData.append("right_ans", questionData.right_ans)
 
     try{
-        axios.post(baseUrl+'/quiz-questions/',+quiz_id, _FormData, {
+        axios.post(baseUrl+'/quiz-questions/'+quiz_id, _FormData, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
@@ -81,7 +81,7 @@ const submitForm=()=>{
                             <div className="mb-3 row">
                                     <label for="inputPassword" className="form-label">Title</label>
                                     <div className="col-sm-10">
-                                    <input type="text" onChange={handleChange} name="title" className="form-control" id="title"/>
+                                    <input type="text" onChange={handleChange} name="questions" className="form-control" id="title"/>
                                     </div>
                             </div>
                             <div className="mb-3 row">
