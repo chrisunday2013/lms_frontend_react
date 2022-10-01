@@ -10,6 +10,7 @@ const baseUrl='http://127.0.0.1:8000/api';
 function ShowQuizes(){
 
     const [quizData, setQuizData]=useState([]);
+    const [totalResult, settotalResult] = useState(0)
     const teacherId=localStorage.getItem('teacherId');
     console.log(teacherId);
         
@@ -27,6 +28,43 @@ function ShowQuizes(){
     },[]);
 
     console.log(quizData)
+
+    
+    const Swal = require('sweetalert2')
+
+    const handleDelete =(quiz_id) =>{
+        Swal.fire({
+            title: 'Confirm!',
+            text: 'Are you sure you want to delete?',
+            icon: 'info',
+            confirmButtonText: 'Continue',
+            showCancelButton:true
+          }).then((result)=>{
+             if(result.isConfirmed){
+                try{
+                    axios.delete(baseUrl+'/quiz/'+quiz_id)
+                    .then((res)=>{
+                        Swal.fire('success','Data has been deleted.');
+                        try{
+                            axios.get(baseUrl+'/show-quiz/'+teacherId)
+                            .then((res)=>{
+                                setQuizData(res.data);
+                                settotalResult(res.data.length)
+                            })
+                        }catch(error){
+                            console.log(error);
+                        }
+                     
+                    })
+                  
+                }catch(error){
+                    Swal.fire('error', 'Data has not been deleted!!');
+                }
+             }else{
+                Swal.fire('error', 'Data has not been deleted!!');
+             }
+          });
+    }
 
     return (
         <div className="container mt-4">
@@ -55,9 +93,9 @@ function ShowQuizes(){
 
                                             <td><Link to="#">12</Link></td>
                                             <td>
-                                                 <Link className="btn btn-warning btn-sm" to="#">Edit</Link>
+                                                 <Link className="btn btn-warning btn-sm" to={`/edit-quiz/`+row.id}>Edit</Link>
                                                  <Link className="btn btn-success btn-sm ms-2" to={'/add-quiz-question/' +row.id}>Add Question</Link>
-                                                 <button className="btn btn-danger btn-sm ms-2">Delete</button>
+                                                 <button onClick={()=>handleDelete(row.id)}className="btn btn-danger btn-sm ms-2">Delete</button>
                                              </td>
                                        </tr>   
                                        )}

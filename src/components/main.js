@@ -41,6 +41,7 @@ import EditChapter from './teacher/editChapter';
 import EditCourse from './teacher/editCourse';
 import AddQuiz from './teacher/add_quiz';
 import ShowQuizes from './teacher/showQuizes';
+import EditQuiz from './teacher/editQuiz';
 
 
 
@@ -90,6 +91,7 @@ function Main() {
          <Route path="/teacher-skill-courses/:skill_name/:teacher_id" element={<TeacherSkillCourse/>}/>
          <Route path="/add-quiz" element={<AddQuiz/>}/>
          <Route path="/quiz" element={<ShowQuizes/>}/>
+         <Route path="/edit-quiz/:quiz_id" element={<EditQuiz/>}/>
 
       </Switch>
       <Footer/>
