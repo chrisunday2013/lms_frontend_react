@@ -88,13 +88,13 @@ function ShowQuizes(){
                                        {quizData.map((row, index)=>
                                        <tr>
                                             <td>
-                                                <Link to={'/all-questions/' +row.id}>{row.title}</Link>
+                                                <Link to={`/all-questions/` +row.id}>{row.title}</Link>
                                             </td>
 
                                             <td><Link to="#">12</Link></td>
                                             <td>
                                                  <Link className="btn btn-warning btn-sm" to={`/edit-quiz/`+row.id}>Edit</Link>
-                                                 <Link className="btn btn-success btn-sm ms-2" to={'/add-quiz-question/' +row.id}>Add Question</Link>
+                                                 <Link className="btn btn-success btn-sm ms-2" to={`/add-quiz-question/`+row.id}>Add Question</Link>
                                                  <button onClick={()=>handleDelete(row.id)}className="btn btn-danger btn-sm ms-2">Delete</button>
                                              </td>
                                        </tr>   

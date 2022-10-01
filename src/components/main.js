@@ -15,6 +15,7 @@ import Profile from './profile';
 import ChangePassword from './changePassword';
 
 
+import AddQuizQuestion from './teacher/addQuizQuestion';
 import AllCourses from './allCourses';
 import AllPopularCourses from './allPopularCourses';
 import AllPopularTeachers from './allPopularTeacher';
@@ -42,6 +43,7 @@ import EditCourse from './teacher/editCourse';
 import AddQuiz from './teacher/add_quiz';
 import ShowQuizes from './teacher/showQuizes';
 import EditQuiz from './teacher/editQuiz';
+import QuizQuestions from './teacher/quizQuestions';
 
 
 
@@ -92,6 +94,8 @@ function Main() {
          <Route path="/add-quiz" element={<AddQuiz/>}/>
          <Route path="/quiz" element={<ShowQuizes/>}/>
          <Route path="/edit-quiz/:quiz_id" element={<EditQuiz/>}/>
+         <Route path="/add-quiz-question/:quiz_id" element={<AddQuizQuestion/>}/>
+         <Route path="/all-questions/:quiz_id" element={<QuizQuestions/>}/>
 
       </Switch>
       <Footer/>
