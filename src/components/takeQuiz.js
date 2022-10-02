@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 const baseUrl='http://127.0.0.1:8000/api';
 
 
-function MyCourses(){
+function TakeQuiz(){
 
 const [courseData, setCourseData]=useState([]);
 const studentId=localStorage.getItem('studentId');
@@ -35,28 +35,32 @@ console.log(courseData)
                    <SideBar/>
                 </aside>
                 <section className="col-md-9">
+                    <h4 className="mb-3 border-bottom pb-1">Quiz Title</h4>
                      <div className="card">
-                          <h5 className="card-header">My Courses</h5>
+                          <h5 className="card-header">Quiz Title</h5>
                           <div className="card-body">
                               <table className="table table-bordered">
-                                  <thead>
-                                       <tr>
-                                           <th>Name</th>
-                                           <th>Created by</th>
-                                           <th>Quiz</th>
-                                       </tr>
-                                  </thead>
                                   <tbody>
-                                    {courseData.map((row, index) =>
-                                    <tr>
-                                       <td><Link to={`/detail/`+row.course.id}>{row.course.title}</Link></td>
-                                       <td><Link to={`/teacher-detail/`+row.course.teacher.id}>{row.course.teacher.full_name}</Link></td>
-                                       <td><Link className="btn btn-sm btn-warning" to={`/course-quiz/`+row.course.id}>Quiz List</Link></td>
-                                    </tr>   
-                                    )}
+                                      <tr>
+                                          <td><input type="radio"/></td>
+                                          <th>Option 1</th>
+                                      </tr>
+                                      <tr>
+                                          <td><input type="radio"/></td>
+                                          <th>Option 2</th>
+                                      </tr>
+                                      <tr>
+                                          <td><input type="radio"/></td>
+                                          <th>Option 3</th>
+                                      </tr>
+                                      <tr>
+                                          <td><input type="radio"/></td>
+                                          <th>Option 4</th>
+                                      </tr>
                                   </tbody>
                               </table>
-
+                              <button className="btn btn-dark">Skip</button>
+                              <button className="btn btn-primary ms-2">Submit</button>
                           </div>
                      </div>
                 </section>
@@ -65,4 +69,4 @@ console.log(courseData)
     )
 }
 
-export default MyCourses;
+export default TakeQuiz;
