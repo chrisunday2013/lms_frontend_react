@@ -9,23 +9,25 @@ const baseUrl='http://127.0.0.1:8000/api';
 
 function CourseQuizList(){
 
-const [courseData, setCourseData]=useState([]);
+const [quizData, setQuizData]=useState([]);
+
 const studentId=localStorage.getItem('studentId');
+const {course_id}=useParams();
 
-//to fetch student went page loads
+//to fetch courses went page load
 useEffect(()=>{
-
     try{
-        axios.get(baseUrl+'/fetch-Enrolled-courses/'+studentId)
+        axios.get(baseUrl+'/fetch-assigned-quiz/'+course_id)
         .then((res)=>{
-            setCourseData(res.data);
+            setQuizData(res.data);
         })
     }catch(error){
         console.log(error);
     }
+    document.title='Quiz List';
 },[]);
 
-console.log(courseData)
+console.log(quizData)
 
 
     return (
@@ -46,14 +48,16 @@ console.log(courseData)
                                        </tr>
                                   </thead>
                                   <tbody>
-                                  <tr>
-                                       <td>Python Quiz</td>
-                                       <td className="text-success">Attempted</td>
-                                    </tr>   
+                                    {quizData.map((row, index) =>
                                     <tr>
-                                       <td>Django Quiz</td>
-                                       <td><Link className="btn btn-sm btn-warning" to={`/take-quiz/1`}>Take Quiz</Link></td>
+                                        <td>
+                                          {row.quiz.title}
+                                        </td>
+                                       <td>
+                                          <Link className="btn btn-sm btn-warning" to={`/take-quiz/`+row.quiz.id}>Take Quiz</Link>
+                                       </td>
                                     </tr>   
+                                    )}
                                   </tbody>
                               </table>
 
