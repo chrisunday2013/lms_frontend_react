@@ -2,6 +2,7 @@ import SideBar from "./sideBar";
 import {Link, useParams} from "react-router-dom";
 import axios from 'axios';
 import { useState, useEffect } from "react";
+import CheckquizStatusForStudent from "./teacher/checkquizStatusForStudent";
 
 
 const baseUrl='http://127.0.0.1:8000/api';
@@ -9,25 +10,26 @@ const baseUrl='http://127.0.0.1:8000/api';
 
 function CourseQuizList(){
 
-const [quizData, setQuizData]=useState([]);
+    const [quizData, setQuizData]=useState([]);
 
-const studentId=localStorage.getItem('studentId');
-const {course_id}=useParams();
 
-//to fetch courses went page load
-useEffect(()=>{
-    try{
-        axios.get(baseUrl+'/fetch-assigned-quiz/'+course_id)
-        .then((res)=>{
-            setQuizData(res.data);
-        })
-    }catch(error){
-        console.log(error);
-    }
-    document.title='Quiz List';
-},[]);
+    const studentId=localStorage.getItem('studentId');
+    const {course_id}=useParams();
 
-console.log(quizData)
+    //to fetch courses went page load
+    useEffect(()=>{
+        try{
+            axios.get(baseUrl+'/fetch-assigned-quiz/'+course_id)
+            .then((res)=>{
+                setQuizData(res.data);
+            })
+        }catch(error){
+            console.log(error);
+        }
+        document.title='Quiz List';
+    },[]);
+
+    console.log(quizData)
 
 
     return (
@@ -53,9 +55,7 @@ console.log(quizData)
                                         <td>
                                           {row.quiz.title}
                                         </td>
-                                       <td>
-                                          <Link className="btn btn-sm btn-warning" to={`/take-quiz/`+row.quiz.id}>Take Quiz</Link>
-                                       </td>
+                                       <CheckquizStatusForStudent quiz={row.quiz.id} student={studentId}/>
                                     </tr>   
                                     )}
                                   </tbody>

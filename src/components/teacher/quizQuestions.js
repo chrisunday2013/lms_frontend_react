@@ -16,7 +16,6 @@ function QuizQuestions(){
 
     // fetch courses when page loads
     useEffect(()=>{
-
         try{
             axios.get(baseUrl+'/quiz-questions/'+quiz_id)
             .then((res)=>{
