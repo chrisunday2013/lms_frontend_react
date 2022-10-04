@@ -1,8 +1,26 @@
 import {Link} from 'react-router-dom';
+import {useState, useEffect} from 'react';
 
 function Header(){
+    const [searchData, setSearchData]=useState({
+        'search':''
+    });
     const teacherLoginStatus=localStorage.getItem('teacherLoginStatus')
     const studentLoginStatus=localStorage.getItem('studentLoginStatus')
+    
+     // change value of element
+    const handleChange=(event)=>{
+    setSearchData({
+        ...searchData,
+        [event.target.name]:event.target.value
+    });
+    }
+
+    const searchCourse=()=>{
+        if (searchData.search !='') {
+            window.location.href="/search/"+searchData.search
+        }
+    }
    
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -11,6 +29,10 @@ function Header(){
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
                 </button>
+                <form className="d-flex">
+                    <input name="search" onChange={handleChange} className="form-control me-2" type="search" placeholder="Search by course title" aria-label="Search"/>
+                    <button onClick={searchCourse} className="btn btn-outline-success" type="button">Search</button>
+                </form>
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav ms-auto">
                        <Link className="nav-link active" aria-current="page" to="/">Home</Link>
@@ -34,6 +56,7 @@ function Header(){
                                 </>
                                 }
                             </ul>
+                               
                             </li>
 
                             <li className="nav-item dropdown">

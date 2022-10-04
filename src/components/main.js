@@ -13,6 +13,7 @@ import FavoriteCoses from './favourite_cos';
 import RecommendedCoses from './recomm_cos';
 import Profile from './profile';
 import ChangePassword from './changePassword';
+import Search from './search';
 
 
 import AddQuizQuestion from './teacher/addQuizQuestion';
@@ -60,6 +61,7 @@ function Main() {
       <Header/>
       <Switch>
          <Route path="/" element={<Home/>}/>
+         <Route path="/search/:search_id" element={<Search/>}/>
          <Route path="/detail/:course_id" element={<CourseDetail/>}/>
          <Route path="/user-login" element={<Login/>}/>
          <Route path="/user-logout" element={<StudentLogout/>}/>
