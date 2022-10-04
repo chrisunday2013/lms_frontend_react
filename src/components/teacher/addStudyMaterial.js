@@ -7,46 +7,42 @@ import Swal from "sweetalert2";
 
 const baseUrl='http://127.0.0.1:8000/api';
 
-function AddChapter(){
-    const [videoDuration, setVideoDuration]=useState()
-    const [chapterData, setChapterData]=useState({
+function AddStudyMaterial(){
+    const [addStudyData, setAddStudyData]=useState({
         title:'',
         description:'',
-        video:'',
+        upload:'',
         remarks:''
     });
 
   // change value of element
   const handleChange=(event)=>{
-    setChapterData({
-        ...chapterData,
+    setAddStudyData({
+        ...addStudyData,
         [event.target.name]:event.target.value
     });
 }
 
-// const handleFileChange=(event)=>{
-//     setChapterData({
-//         ...chapterData,
-//         [event.target.name]:event.target.files[0]
-//     })
-// } 
-//End
 
 const handleFileChange=(event)=>{
     window.URL = window.URL || window.webkitURL;
-    var video = document.createElement('video');
-    video.preload = 'metadata';
-    video.onloadedmetadata = function () {
-        window.URL.revokeObjectURL(video.src);
-        setVideoDuration(video.duration);
-    }
-    video.src = URL.createObjectURL(event.target.files[0]);
+    var upload = document.createElement('upload');
+    upload.src = URL.createObjectURL(event.target.files[0]);
 
-    setChapterData({
-        ...chapterData,
+    setAddStudyData({
+        ...addStudyData,
         [event.target.name]:event.target.files[0]
     })
 }
+
+
+
+// const handleFileChange=(event)=>{
+//     setAddStudyData({
+//         ...addStudyData,
+//         [event.target.name]:event.target.files[0]
+//     })
+// } 
 
 const {course_id}=useParams()
 
@@ -55,14 +51,13 @@ const submitForm=()=>{
     const _FormData=new FormData();
    
     _FormData.append("course",course_id);
-    _FormData.append("title", chapterData.title)
-    _FormData.append("description", chapterData.description)
-    _FormData.append("video", chapterData.video, chapterData.video.name);
-    _FormData.append("video_duration", videoDuration);
-    _FormData.append("remarks", chapterData.remarks)
+    _FormData.append("title", addStudyData.title)
+    _FormData.append("description", addStudyData.description)
+    _FormData.append("upload", addStudyData.upload, addStudyData.upload.name);
+    _FormData.append("remarks", addStudyData.remarks)
 
     try{
-        axios.post(baseUrl+'/chapter/'+course_id, _FormData, {
+        axios.post(baseUrl+'/study-materials/'+course_id, _FormData, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
@@ -96,7 +91,7 @@ const submitForm=()=>{
                 </aside>
                 <section className="col-md-9">
                    <div className="card">    
-                      <h5 className="card-header">Add Chapter</h5>
+                      <h5 className="card-header">Add Study Material</h5>
                       <div className="card-body">
                        {/* <form>  */}
                             <div className="mb-3 row">
@@ -111,15 +106,15 @@ const submitForm=()=>{
                                 <textarea onChange={handleChange} name="description" className="form-control"></textarea>
                             </div>
                             <div className="mb-3 row">
-                                    <label for="inputPassword" className="form-label">Video</label>
-                                    <div className="col-sm-10">
-                                    <input type="file" onChange={handleFileChange} name="video" className="form-control" id="video"/>
-                                    </div>
+                                    <label for="upload" className="form-label">Upload</label>
+                                    
+                                    <input type="file" onChange={handleFileChange} name="upload" className="form-control" id="upload"/>
+                                    
                             </div>
                           
                            <div className="mb-3">
-                                <label for="exampleInputPassword1" className="form-label">Remarks</label>
-                                <textarea onChange={handleChange} name="remarks" placeholder="This video is focused on Beginners" className="form-control"></textarea>
+                                <label for="ramarks" className="form-label">Remarks</label>
+                                <textarea onChange={handleChange} name="remarks" className="form-control" id="remarks"></textarea>
                             </div>
                                     <hr/>
                                     <button type="button" onClick={submitForm} className="btn btn-primary">Submit</button>
@@ -133,4 +128,4 @@ const submitForm=()=>{
     )
 }
 
-export default AddChapter;
+export default AddStudyMaterial;

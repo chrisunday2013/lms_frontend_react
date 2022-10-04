@@ -3,7 +3,6 @@ import {Link, useParams} from "react-router-dom";
 import axios from 'axios';
 import { useState, useEffect } from "react";
 import CheckQuizingCourse from "./checkQuizingCourse";
-const Swal = require('sweetalert2')
 
 
 const baseUrl='http://127.0.0.1:8000/api';
@@ -42,10 +41,6 @@ function AssignQuiz(){
         }
 
     },[]);
-
-       
-
-
 
     return (
         <div className="container mt-4">
