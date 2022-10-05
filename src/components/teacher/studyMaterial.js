@@ -61,6 +61,10 @@ function StudyMaterial(){
              }
           });
     }
+     
+    const downloadFile=(file_url)=>{
+        window.location.href=file_url
+    }
 
     return(
          <div className="container mt-4">
@@ -86,7 +90,7 @@ function StudyMaterial(){
                                        <tr>
                                             <td>{row.title}</td>
                                             <td>
-                                                 <Link to={`/{row.upload}`}>file</Link>
+                                            <button className="btn btn-outline-primary" onClick={()=>downloadFile(row.upload)}>Download File</button>
                                             </td>
                                             <td>{row.remarks}</td>
                                             <td>

@@ -16,14 +16,15 @@ import ChangePassword from './changePassword';
 import Search from './search';
 
 
+
 import AddQuizQuestion from './teacher/addQuizQuestion';
 import AllCourses from './allCourses';
 import AllPopularCourses from './allPopularCourses';
 import AllPopularTeachers from './allPopularTeacher';
 import CourseCategory from './CourseCategory';
-import StudyMaterial from './teacher/studyMaterial';
+import UserStudyMaterial from './user/studyMaterial';
 
-
+import StudyMaterial from './teacher/studyMaterial'
 import StudentAssignment from './user/assigment';
 import AddAssignment from './teacher/addAssignment';
 import ShowAssignment from './teacher/showAssignment';
@@ -108,6 +109,10 @@ function Main() {
          <Route path="/course-quiz/:course_id" element={<CourseQuizList/>}/>
          <Route path="/take-quiz/:quiz_id" element={<TakeQuiz/>}/>
          <Route path="/study-materials/:course_id" element={<StudyMaterial/>}/>
+
+         <Route path="/user/study-materials/:course_id" element={<UserStudyMaterial/>}/>
+
+
       </Switch>
       <Footer/>
     </div>
