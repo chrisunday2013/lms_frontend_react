@@ -7,6 +7,7 @@ const baseUrl='http://127.0.0.1:8000/api';
 
 function Home(){
     const [courseData, setCourseData]=useState([]);
+    const [popularCourseData, setPopularCourseData]=useState([]);
         
     // fetch courses when page loads
     useEffect(()=>{
@@ -15,6 +16,15 @@ function Home(){
             axios.get(baseUrl+'/course/?result=4')
             .then((res)=>{
                 setCourseData(res.data);
+            })
+        }catch(error){
+            console.log(error);
+        }
+
+        try{
+            axios.get(baseUrl+'/popular-courses/?popular=1')
+            .then((res)=>{
+                setPopularCourseData(res.data);
             })
         }catch(error){
             console.log(error);
@@ -42,63 +52,24 @@ function Home(){
         {/* Popular courses*/}
         <h3 className="pb-1 mb-4 mt-5">Popular Courses <Link to="/all-popularCos" className="float-end">See All</Link></h3>
           <div className="row mb-4">
-              <div className="col-md-3">
+            {popularCourseData && popularCourseData.map((row,index)=>
+               <div className="col-md-3">
                     <div className="card">
-                        <a href="#"><img src="logo192.png" className="card-img-top" alt="..."/></a>
-                            <div className="card-body">
-                                <h5 className="card-title"><Link to="/detail/1">Course title</Link></h5>
+                        <Link to={`/detail/${row.course.id}`}><img src={row.course.featured_img} className="card-img-top" alt={row.course.title}/></Link>
+                        <div className="card-body">
+                        <h5 className="card-title"><Link to={`/detail/${row.course.id}`}>{row.course.title}</Link></h5>
+                         </div>
+                         <div className="card-footer">
+                            <div className="title">
+                                <span>Rating; {row.rating}/5</span>
+                                <span className="float-end">Views: 78945</span>
                             </div>
-                            <div className="card-footer">
-                                 <div className="title">
-                                       <span>Rating: 4.5/5</span>
-                                       <span className="float-end">Views: 78945</span>
-                                 </div>
-                            </div>
-                    </div>
-              </div>
-              <div className="col-md-3">
-                    <div className="card">
-                        <a href="#"><img src="logo192.png" className="card-img-top" alt="..."/></a>
-                            <div className="card-body">
-                                <h5 className="card-title"><Link to="/detail/1">Course Title</Link></h5>
-                            </div>
-                            <div className="card-footer">
-                                 <div className="title">
-                                       <span>Rating: 4.5/5</span>
-                                       <span className="float-end">Views: 78945</span>
-                                 </div>
-                            </div>
-                    </div>
-              </div>
-              <div className="col-md-3">
-                    <div className="card">
-                        <a href="#"><img src="logo192.png" className="card-img-top" alt="..."/></a>
-                            <div className="card-body">
-                                <h5 className="card-title"><Link to="/detail/1">Course Title</Link></h5>
-                            </div>
-                            <div className="card-footer">
-                                 <div className="title">
-                                       <span>Rating: 4.5/5</span>
-                                       <span className="float-end">Views: 78945</span>
-                                 </div>
-                            </div>
-                    </div>
-              </div>
-              <div className="col-md-3">
-                    <div className="card">
-                        <a href="#"><img src="logo192.png" className="card-img-top" alt="..."/></a>
-                            <div className="card-body">
-                                <h5 className="card-title"><Link to="/detail/1">Course Title</Link></h5>
-                            </div>
-                            <div className="card-footer">
-                                 <div className="title">
-                                       <span>Rating: 4.5/5</span>
-                                       <span className="float-end">Views: 78945</span>
-                                 </div>
-                            </div>
-                    </div>
-              </div>
 
+                         </div>
+
+                    </div>
+               </div>
+             )}
           </div>
         {/*end popular courses*/}
         {/* Featured teachers*/}

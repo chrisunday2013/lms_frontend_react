@@ -1,13 +1,13 @@
 
 import axios from 'axios';
 import { useState, useEffect } from "react";
+import {Link, useParams} from "react-router-dom";
 
 
 const baseUrl='http://127.0.0.1:8000/api';
 
 
 function CheckQuizingCourse(props){
-
     const [quizData, setQuizData]=useState([]);
 
 
@@ -62,7 +62,14 @@ function CheckQuizingCourse(props){
             }
 
             {quizData.bool==true &&
-              <span className='text-success'>Assigned</span>
+            <>
+              <span className='btn btn-sm btn-secondary'>
+                Assigned
+              </span>
+              &nbsp;
+              <Link className='btn btn-sm btn-info' to={`/attempted-students/`+props.quiz}>Attempted Students</Link>
+            
+              </>
             }
         </td>
     )

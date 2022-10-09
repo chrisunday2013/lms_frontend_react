@@ -24,6 +24,8 @@ import AllPopularTeachers from './allPopularTeacher';
 import CourseCategory from './CourseCategory';
 import UserStudyMaterial from './user/studyMaterial';
 
+
+import AttemptedStudent from './attemptedStudent';
 import StudyMaterial from './teacher/studyMaterial'
 import StudentAssignment from './user/assigment';
 import AddAssignment from './teacher/addAssignment';
@@ -104,10 +106,11 @@ function Main() {
          <Route path="/quiz" element={<ShowQuizes/>}/>
          <Route path="/edit-quiz/:quiz_id" element={<EditQuiz/>}/>
          <Route path="/add-quiz-question/:quiz_id" element={<AddQuizQuestion/>}/>
-         <Route path="/all-questions" element={<QuizQuestions/>}/>
+         <Route path="/all-questions/:quiz_id" element={<QuizQuestions/>}/>
          <Route path="/assign-quiz/:course_id" element={<AssignQuiz/>}/>
          <Route path="/course-quiz/:course_id" element={<CourseQuizList/>}/>
          <Route path="/take-quiz/:quiz_id" element={<TakeQuiz/>}/>
+         <Route path="/attempted-students/:quiz_id" element={<AttemptedStudent/>}/>
          <Route path="/study-materials/:course_id" element={<StudyMaterial/>}/>
 
          <Route path="/user/study-materials/:course_id" element={<UserStudyMaterial/>}/>

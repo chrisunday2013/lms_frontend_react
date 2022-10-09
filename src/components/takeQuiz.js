@@ -22,6 +22,7 @@ useEffect(()=>{
     }catch(error){
         console.log(error);
     }
+    document.title='Attempt Quiz'
 },[]);
 
 const submitAnswer=(question_id,right_ans)=>{
@@ -63,7 +64,7 @@ const submitAnswer=(question_id,right_ans)=>{
                 </aside>
                 <section className="col-md-9">
                     <h4 className="mb-3 border-bottom pb-1">Quiz Title</h4>
-                    {QuestionData.map((row, index)=>
+                    {QuestionData.map((row, index)=> 
                      <div className="card">
                           <h5 className="card-header">{row.questions}</h5>
                           <div className="card-body">
@@ -84,7 +85,7 @@ const submitAnswer=(question_id,right_ans)=>{
                                             <td><button onClick={()=>submitAnswer(row.id,row.ans4)} className="btn btn-outline-secondary">{row.ans4}</button></td>
                                         </tr>
                                         </>
-                                 
+                                
                                   </tbody>
                               </table>
                           </div>

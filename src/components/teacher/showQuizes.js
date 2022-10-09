@@ -88,7 +88,7 @@ function ShowQuizes(){
                                        {quizData.map((row, index)=>
                                        <tr>
                                             <td>
-                                                <Link to={`/all-questions/` +row.id}>{row.title}</Link>
+                                                <Link to={`/all-questions/`+row.id}>{row.title}</Link>
                                             </td>
 
                                             <td><Link to="#">12</Link></td>
