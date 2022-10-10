@@ -20,6 +20,7 @@ function CourseDetail(){
     const [ratingStatus, setRatingStatus]=useState();
     const [avgRating, setAvgRating]=useState(0);
     const [favoriteStatus, setFavoriteStatus]=useState(0);
+    const [couseViewData, setCourseViewData]=useState(0);
 
 
     const studentId=localStorage.getItem('studentId');
@@ -39,6 +40,13 @@ function CourseDetail(){
                 if(res.data.course_rating!= '' && res.data.course_rating!=null)
                 setAvgRating(res.data.course_rating)
             })
+
+            //update view
+            axios.get(baseUrl+'/update-view/'+course_id)
+            .then((res)=>{
+                console.log(res.data)
+                setCourseViewData(res.data.views)
+            });
         }catch(error){
             console.log(error);
         }
@@ -311,7 +319,11 @@ const formSubmit=()=>{
                                     </div>
                                 </> 
                              }
-                                </p>
+                               
+                            </p>
+                            <p className='fw-bold'>
+                                Views: {couseViewData}
+                            </p>
                              {enrolledStatus  === 'success' &&  userLoginStatus === 'success' &&
                               <p><span>You are already enrolled in this course</span></p>
                              }
