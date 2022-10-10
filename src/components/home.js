@@ -8,6 +8,7 @@ const baseUrl='http://127.0.0.1:8000/api';
 function Home(){
     const [courseData, setCourseData]=useState([]);
     const [popularCourseData, setPopularCourseData]=useState([]);
+    const [popularTeacherData, setPopularTeacherData]=useState([]);
         
     // fetch courses when page loads
     useEffect(()=>{
@@ -25,6 +26,15 @@ function Home(){
             axios.get(baseUrl+'/popular-courses/?popular=1')
             .then((res)=>{
                 setPopularCourseData(res.data);
+            })
+        }catch(error){
+            console.log(error);
+        }
+
+        try{
+            axios.get(baseUrl+'/popular-teachers/?popular=1')
+            .then((res)=>{
+                setPopularTeacherData(res.data);
             })
         }catch(error){
             console.log(error);
@@ -75,38 +85,21 @@ function Home(){
         {/* Featured teachers*/}
         <h3 className="pb-1 mb-4 mt-5">Popular Teachers <Link to="/all-popularTeachers" className="float-end">See All</Link></h3>
           <div className="row mb-4">
+            {popularTeacherData.map((row, indes)=> 
               <div className="col-md-3">
                     <div className="card">
-                        <a href="#"><img src="logo192.png" className="card-img-top" alt="..."/></a>
+                        <Link to={`/teacher-detail/${row.id}`}><img src={row.profile_img} className="card-img-top" alt="..."/></Link>
                             <div className="card-body">
-                                <h5 className="card-title"><Link to="/teacher-detail/1">Teacher Name</Link></h5>
+                                <h5 className="card-title"><Link to={`/teacher-detail/${row.id}`}>{row.full_name}</Link></h5>
+                            </div>
+                            <div>
+                                <div>
+                                    <span>Total Courses: {row.total_teacher_courses}</span>
+                                </div>
                             </div>
                     </div>
               </div>
-              <div className="col-md-3">
-                    <div className="card">
-                        <a href="#"><img src="logo192.png" className="card-img-top" alt="..."/></a>
-                            <div className="card-body">
-                                <h5 className="card-title"><Link to="/teacher-detail/1">Teacher Name</Link></h5>
-                            </div>
-                    </div>
-              </div>
-              <div className="col-md-3">
-                    <div className="card">
-                        <a href="#"><img src="logo192.png" className="card-img-top" alt="..."/></a>
-                            <div className="card-body">
-                                <h5 className="card-title"><Link to="/teacher-detail/1">Teacher Name</Link></h5>
-                            </div>
-                    </div>
-              </div>
-              <div className="col-md-3">
-                    <div className="card">
-                        <a href="#"><img src="logo192.png" className="card-img-top" alt="..."/></a>
-                            <div className="card-body">
-                                <h5 className="card-title"><Link to="/teacher-detail/1">Teacher Name</Link></h5>
-                            </div>
-                    </div>
-              </div>
+            )}
 
           </div>
         {/*end Feature teachers*/}
