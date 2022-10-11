@@ -17,7 +17,7 @@ function Home(){
         try{
             axios.get(baseUrl+'/course/?result=4')
             .then((res)=>{
-                setCourseData(res.data);
+                setCourseData(res.data.results);
             })
         }catch(error){
             console.log(error);
@@ -26,7 +26,7 @@ function Home(){
         try{
             axios.get(baseUrl+'/popular-courses/?popular=1')
             .then((res)=>{
-                setPopularCourseData(res.data);
+                setPopularCourseData(res.data.results);
             })
         }catch(error){
             console.log(error);
@@ -55,8 +55,8 @@ function Home(){
       <div className="container mt-4">
         {/* latest courses*/}
         <h3 className="pb-1 mb-4">New Courses <Link to="/all-courses" className="float-end">See All</Link></h3>
-          <div className="row mb-4">
-          {courseData && courseData.map((course, index)=>
+        <div className="row mb-4">
+         {courseData && courseData.map((course, index)=>
               <div className="col-md-3 mb-4">
                     <div className="card">
                         <Link to={`/detail/${course.id}`}><img src={course.featured_img} className="card-img-top" alt={course.title}/></Link>
@@ -66,7 +66,7 @@ function Home(){
                     </div>
               </div>
             )}
-             
+              
           </div>
         {/*end latest courses*/}
         {/* Popular courses*/}
@@ -95,7 +95,7 @@ function Home(){
         {/* Featured teachers*/}
         <h3 className="pb-1 mb-4 mt-5">Popular Teachers <Link to="/all-popularTeachers" className="float-end">See All</Link></h3>
           <div className="row mb-4">
-            {popularTeacherData.map((row, indes)=> 
+            {popularTeacherData && popularTeacherData.map((row, indes)=> 
               <div className="col-md-3">
                     <div className="card">
                         <Link to={`/teacher-detail/${row.id}`}><img src={row.profile_img} className="card-img-top" alt="..."/></Link>
@@ -117,14 +117,14 @@ function Home(){
         <h3 className="pb-1 mb-4 mt-5">Student Testimonial </h3>
         <div id="carouselExampleIndicators" className="carousel slide bg-dark text-white py-5" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                {studentTestimoniaData && studentTestimoniaData.map((row, index)=>
+                {/* {studentTestimoniaData && studentTestimoniaData.map((row, index)=>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{index}" className={index === 0 ? "active" : ""}></button>
             
-                )}
+                )} */}
                 </div>
             <div className="carousel-inner">
-               
-            {studentTestimoniaData && studentTestimoniaData.map((row, i)=>
+             
+            {/* {studentTestimoniaData && studentTestimoniaData.map((row, i)=>
                 <div className={i === 0 ? "carousel-item text-center active": "carousel-item text-center"}>
                     <figure className="text-center">
                             <blockquote className="blockquote">
@@ -135,7 +135,7 @@ function Home(){
                             </figcaption>
                     </figure>
                 </div>
-             )}
+             )}  */}
              </div>   
             <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>
