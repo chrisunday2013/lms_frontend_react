@@ -9,6 +9,7 @@ function Home(){
     const [courseData, setCourseData]=useState([]);
     const [popularCourseData, setPopularCourseData]=useState([]);
     const [popularTeacherData, setPopularTeacherData]=useState([]);
+    const [studentTestimoniaData, setStudentTestimoniaData]=useState([]);
         
     // fetch courses when page loads
     useEffect(()=>{
@@ -35,6 +36,15 @@ function Home(){
             axios.get(baseUrl+'/popular-teachers/?popular=1')
             .then((res)=>{
                 setPopularTeacherData(res.data);
+            })
+        }catch(error){
+            console.log(error);
+        }
+
+        try{
+            axios.get(baseUrl+'/student-testimonial/')
+            .then((res)=>{
+                setStudentTestimoniaData(res.data);
             })
         }catch(error){
             console.log(error);
@@ -104,45 +114,29 @@ function Home(){
           </div>
         {/*end Feature teachers*/}
            {/* Student Testimonial*/}
-        <h3 className="pb-1 mb-4 mt-5">Student Testimonial <a href="#" className="float-end">See All</a></h3>
+        <h3 className="pb-1 mb-4 mt-5">Student Testimonial </h3>
         <div id="carouselExampleIndicators" className="carousel slide bg-dark text-white py-5" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
+                {studentTestimoniaData && studentTestimoniaData.map((row, index)=>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{index}" className={index === 0 ? "active" : ""}></button>
+            
+                )}
+                </div>
             <div className="carousel-inner">
-                <div className="carousel-item active">
+               
+            {studentTestimoniaData && studentTestimoniaData.map((row, i)=>
+                <div className={i === 0 ? "carousel-item text-center active": "carousel-item text-center"}>
                     <figure className="text-center">
                             <blockquote className="blockquote">
-                                <p>A well-known quote, contained in a blockquote element.</p>
+                                <p>{row.reviews}</p>
                             </blockquote>
                             <figcaption className="blockquote-footer">
-                            Someone famous in <cite title="Source Title">Source Title</cite>
+                            {row.course.title} <cite title="Source Title">{row.student.full_name}</cite>
                             </figcaption>
                     </figure>
                 </div>
-                <div className="carousel-item">
-                        <figure className="text-center">
-                                    <blockquote className="blockquote">
-                                        <p>A well-known quote, contained in a blockquote element.</p>
-                                    </blockquote>
-                                    <figcaption className="blockquote-footer">
-                                    Someone famous in <cite title="Source Title">Source Title</cite>
-                                    </figcaption>
-                        </figure>
-                </div>
-                <div className="carousel-item">
-                    <figure className="text-center">
-                            <blockquote className="blockquote">
-                                <p>A well-known quote, contained in a blockquote element.</p>
-                            </blockquote>
-                            <figcaption className="blockquote-footer">
-                            Someone famous in <cite title="Source Title">Source Title</cite>
-                            </figcaption>
-                    </figure>
-                </div>
-            </div>
+             )}
+             </div>   
             <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span className="visually-hidden">Previous</span>
