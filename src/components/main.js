@@ -14,7 +14,7 @@ import RecommendedCoses from './recomm_cos';
 import Profile from './profile';
 import ChangePassword from './changePassword';
 import Search from './search';
-
+import Category from './category';
 
 
 import AddQuizQuestion from './teacher/addQuizQuestion';
@@ -98,7 +98,8 @@ function Main() {
          <Route path="/enrolled-student/:course_id" element={<EnrolledStudents/>}/>
          <Route path="/all-popularCos" element={<AllPopularCourses/>}/>
          <Route path="/all-popularTeachers" element={<AllPopularTeachers/>}/>
-         <Route path="/category/:category_slug" element={<CourseCategory/>}/>
+         <Route path="/course/:category_id/:category_slug" element={<CourseCategory/>}/>
+         <Route path="/category" element={<Category/>}/>
          <Route path="/add-chapter/:course_id" element={<AddChapter/>}/>
          <Route path="/add-study/:course_id" element={<AddStudyMaterial/>}/>
          <Route path="/teacher-skill-courses/:skill_name/:teacher_id" element={<TeacherSkillCourse/>}/>

@@ -3,48 +3,33 @@ import axios from 'axios';
 import { useState, useEffect } from "react";
 
 
-const baseUrl="http://127.0.0.1:8000/api";
+const baseUrl='http://127.0.0.1:8000/api';
 
-function CourseCategory(){
-    const [courseData, setCourseData]=useState([]);
-    const [previousUrl, setPreviousUrl]=useState([]);
-    const [nextUrl, setNextUrl]=useState([]);
+function Category(){
+    const [categoryData, setCategoryData]=useState([]);
 
-    const {category_id, category_slug}=useParams();
-
-   
     useEffect(()=>{
-        fetchData(baseUrl+'/course/?category='+category_id);
+        try{
+            axios.get(baseUrl+'/category/')
+            .then((res)=>{
+                setCategoryData(res.data);
+            })
+        } catch(error){
+            console.log(error);
+        }
     },[]);
-
-    const paginationHandler=(url)=>{
-         fetchData(url)
-    }
-
-   function fetchData(url){
-       try{
-           axios.get(url)
-           .then((res)=>{
-               setNextUrl(res.data.next)
-               setPreviousUrl(res.data.previous)
-               setCourseData(res.data.results);
-           })
-       }catch(error){
-           console.log(error);
-       }
-   }
 
     return(
           <div className="container mt-3">
                {/* latest courses*/}
-        <h3 className="pb-1 mb-4">{category_slug}</h3>
+        <h3 className="pb-1 mb-4">All Categories</h3>
           <div className="row mb-4">
-          {courseData && courseData.map((course, index)=>
+          {categoryData && categoryData.map((row, index)=>
               <div className="col-md-3 mb-4">
                     <div className="card">
-                        <Link to={`/detail/${course.id}`}><img src={course.featured_img} className="card-img-top" alt={course.title}/></Link>
                             <div className="card-body">
-                                <h5 className="card-title"><Link to={`/detail/${course.id}`}>{course.title}</Link></h5>
+                                <h5 className="card-title"><Link to={`/course/${row.id}/${row.title}`}>{row.title} ({row.total_courses})</Link></h5>
+                                <p className='card-text'>{row.description}</p>
                             </div>
                     </div>
               </div>
@@ -52,7 +37,7 @@ function CourseCategory(){
           </div>
         {/*end latest courses*/}
         {/* pagination start */}
-        <nav aria-label="Page navigation example mt-5">
+        {/* <nav aria-label="Page navigation example mt-5">
                 <ul className="pagination justify-content-center">
                     {previousUrl && 
                     <li className="page-item"><button className="page-link" onClick={()=>paginationHandler(previousUrl)}><i class="bi bi-arrow-left"></i>Previous</button></li>
@@ -61,10 +46,10 @@ function CourseCategory(){
                     <li className="page-item"><button className="page-link" onClick={()=>paginationHandler(nextUrl)}><i class="bi bi-arrow-right"></i>Next</button></li>
                     }
                 </ul>
-            </nav>
+            </nav> */}
         {/* pagination ends */}
         </div>
     )
 }
 
-export default CourseCategory;
+export default Category;
