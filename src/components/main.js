@@ -53,6 +53,7 @@ import QuizQuestions from './teacher/quizQuestions';
 import AssignQuiz from './teacher/assignQuiz';
 import CourseQuizList from './courseQuizList';
 import TakeQuiz from './takeQuiz';
+import Faqs from './faqs';
 
 
 
@@ -105,6 +106,7 @@ function Main() {
          <Route path="/teacher-skill-courses/:skill_name/:teacher_id" element={<TeacherSkillCourse/>}/>
          <Route path="/add-quiz" element={<AddQuiz/>}/>
          <Route path="/quiz" element={<ShowQuizes/>}/>
+         <Route path="/faq" element={<Faqs/>}/>
          <Route path="/edit-quiz/:quiz_id" element={<EditQuiz/>}/>
          <Route path="/add-quiz-question/:quiz_id" element={<AddQuizQuestion/>}/>
          <Route path="/all-questions/:quiz_id" element={<QuizQuestions/>}/>
