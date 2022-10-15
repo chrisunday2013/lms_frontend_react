@@ -54,6 +54,7 @@ import AssignQuiz from './teacher/assignQuiz';
 import CourseQuizList from './courseQuizList';
 import TakeQuiz from './takeQuiz';
 import Faqs from './faqs';
+import Page from './page';
 
 
 
@@ -107,6 +108,7 @@ function Main() {
          <Route path="/add-quiz" element={<AddQuiz/>}/>
          <Route path="/quiz" element={<ShowQuizes/>}/>
          <Route path="/faq" element={<Faqs/>}/>
+         <Route path="/page/:page_id/:page_slug" element={<Page/>}/>
          <Route path="/edit-quiz/:quiz_id" element={<EditQuiz/>}/>
          <Route path="/add-quiz-question/:quiz_id" element={<AddQuizQuestion/>}/>
          <Route path="/all-questions/:quiz_id" element={<QuizQuestions/>}/>

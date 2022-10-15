@@ -35,7 +35,7 @@ function Home(){
         try{
             axios.get(baseUrl+'/popular-teachers/?popular=1')
             .then((res)=>{
-                setPopularTeacherData(res.data);
+                setPopularTeacherData(res.data.results);
             })
         }catch(error){
             console.log(error);
@@ -44,7 +44,7 @@ function Home(){
         try{
             axios.get(baseUrl+'/student-testimonial/')
             .then((res)=>{
-                setStudentTestimoniaData(res.data);
+                setStudentTestimoniaData(res.data.results);
             })
         }catch(error){
             console.log(error);
@@ -117,14 +117,14 @@ function Home(){
         <h3 className="pb-1 mb-4 mt-5">Student Testimonial </h3>
         <div id="carouselExampleIndicators" className="carousel slide bg-dark text-white py-5" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                {/* {studentTestimoniaData && studentTestimoniaData.map((row, index)=>
+                 {studentTestimoniaData && studentTestimoniaData.map((row, index)=>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{index}" className={index === 0 ? "active" : ""}></button>
             
-                )} */}
+                )} 
                 </div>
             <div className="carousel-inner">
              
-            {/* {studentTestimoniaData && studentTestimoniaData.map((row, i)=>
+            {studentTestimoniaData && studentTestimoniaData.map((row, i)=>
                 <div className={i === 0 ? "carousel-item text-center active": "carousel-item text-center"}>
                     <figure className="text-center">
                             <blockquote className="blockquote">
@@ -135,7 +135,7 @@ function Home(){
                             </figcaption>
                     </figure>
                 </div>
-             )}  */}
+             )}  
              </div>   
             <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>

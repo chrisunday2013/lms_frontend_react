@@ -3,15 +3,15 @@ import {useEffect, useState} from 'react';
 import axios from 'axios';
 
 
-const baseUrl="http://localhost:8000/api/teacher/'";
+const baseUrl="http://localhost:8000/api";
 function AllPopularTeachers(){
     const [teacher, setTeacher]=useState(null);
    
 
     useEffect(()=>{
-        axios.get(baseUrl)
+        axios.get(baseUrl+'/popular-teachers/?all=1')
         .then((response)=>{
-            // console.log(response.data);
+            console.log(response.data);
             setTeacher(response.data);
            
         });

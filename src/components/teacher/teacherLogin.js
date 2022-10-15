@@ -72,10 +72,7 @@ function TeacherLogin(){
                                     <label for="exampleInputPassword1" className="form-label">Password</label>
                                     <input value={teacherLoginData.password} onChange={handleChange} type="password" name="password" className="form-control" />
                                 </div>
-                                {/* <div className="mb-3 form-check">
-                                    <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-                                    <label value={teacherLogin.remember} onChange={handleChange} name="" className="form-check-label" for="exampleCheck1">Remember me</label>
-                                </div> */}
+
                                 <button type="submit" onClick={submitForm} className="btn btn-primary">Login</button>
                             {/* </form> */}
                         </div>
