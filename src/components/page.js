@@ -23,10 +23,10 @@ function Page(){
 
     },[page_id])
     return (
-        <>
+        <div className="container mt-3">
             <h2>{pageData.title}</h2>
             <h2>{pageData.content}</h2>
-        </>
+        </div>
     )
 }
 
