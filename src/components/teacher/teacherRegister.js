@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 const baseUrl="http://localhost:8000/api/teacher/";
 
 
 function TeacherReg(){
+    const navigate=useNavigate();
     const [teacherData, setteacherData]=useState({
         'full_name':'',
         'email':'',
@@ -13,6 +15,7 @@ function TeacherReg(){
         'qualification':'',
         'mobile_no':'',
         'skills':'',
+        'otp_digit':'',
         'status': ''
     });
 
@@ -29,6 +32,7 @@ function TeacherReg(){
 
     // Submit Form
     const submitForm=()=>{
+        const otp_digit=Math.floor(1000000 + Math.random() * 900000);
         const teacherFormData=new FormData();
 
         teacherFormData.append("full_name", teacherData.full_name)
@@ -36,20 +40,24 @@ function TeacherReg(){
         teacherFormData.append("password", teacherData.password)
         teacherFormData.append("qualification", teacherData.qualification)
         teacherFormData.append("mobile_no", teacherData.mobile_no)
+        teacherFormData.append("otp_digit", otp_digit)
         teacherFormData.append("skills", teacherData.skills)
 
 
         try{
             axios.post(baseUrl,teacherFormData).then((response)=>{
-                setteacherData({
-                    'full_name':'',
-                    'email':'',
-                    'password':'',
-                    'qualification':'',
-                    'mobile_no':'',
-                    'skills':'',
-                    'status': 'success'
-                });
+                console.log(response.data);
+                navigate('/verify-teacher/'+response.data.id)
+                // window.location.href='/verify-teacher/'+response.data.id;
+                // setteacherData({
+                //     'full_name':'',
+                //     'email':'',
+                //     'password':'',
+                //     'qualification':'',
+                //     'mobile_no':'',
+                //     'skills':'',
+                //     'status': 'success'
+                // });
             });
 
         }catch(error){
@@ -58,11 +66,6 @@ function TeacherReg(){
         }
     };
 
-    
-    const teacherLoginStatus=localStorage.getItem('teacherLoginStatus')
-    if(teacherLoginStatus=='true'){
-        window.location.href='/teacher-dashboard'
-    }
 
     useEffect(()=>{
         document.title="Teacher Register"

@@ -1,13 +1,14 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
+import {useParams, useNavigate} from 'react-router-dom';
 
 
 const baseUrl='http://127.0.0.1:8000/api';
 
-function TeacherLogin(){
-    const [teacherLoginData, setteacherLoginData]=useState({
-        email:'',
-        password:''
+function OtpVerify(){
+    const navigate=useNavigate();
+    const [teacherData, setTeacherData]=useState({
+        otp_digit:''
         
     })
      
@@ -16,24 +17,26 @@ function TeacherLogin(){
   
 
     const handleChange=(event)=>{
-        setteacherLoginData({
-            ...teacherLoginData,[event.target.name]:event.target.value
+        setTeacherData({
+            ...teacherData,[event.target.name]:event.target.value
         });
     }
 
+    const {teacher_id}=useParams();
+
     const submitForm=()=>{
         const teacherFormData=new FormData();
-        teacherFormData.append('email', teacherLoginData.email)
-        teacherFormData.append('password', teacherLoginData.password)
+        teacherFormData.append('otp_digit', teacherData.otp_digit)
 
         try{
-            axios.post(baseUrl+'/teacher-login', teacherFormData)
+            axios.post(baseUrl+'/verify-teacher/'+teacher_id+'/', teacherFormData)
             .then((response)=>{
                 // console.log(response.data);
                 if(response.data.bool===true){
                     localStorage.setItem('teacherLoginStatus', true);
                     localStorage.setItem('teacherId', response.data.teacher_id);
-                    window.location.href='/teacher-dashboard';
+                    navigate('/teacher-dashboard')
+                    // window.location.href='/teacher-dashboard';
                 }else{
                     setErrorMsg(response.data.msg);
                 }
@@ -46,11 +49,12 @@ function TeacherLogin(){
 
     const teacherLoginStatus=localStorage.getItem('teacherLoginStatus')
     if(teacherLoginStatus==='true'){
-        window.location.href='/teacher-dashboard'
+        navigate('/teacher-dashboard')
+        // window.location.href='/teacher-dashboard'
     }
 
     useEffect(()=>{
-        document.title='Teacher Login'
+        document.title='Verify Teacher Login'
     });
 
     return (
@@ -59,18 +63,13 @@ function TeacherLogin(){
                 <div className="col-6 offset-3">
                     <div className="card">
                     {errorMsg && <p className="text-danger">{errorMsg}</p>}
-                        <h5 className="card-header">Teacher Login</h5>
+                        <h5 className="card-header">Enter 6 Digit OTP</h5>
                         <div className="card-body">
                             
                            {/* <form> */}
                                 <div className="mb-3">
-                                    <label for="exampleInputEmail1" className="form-label">Email</label>
-                                    <input value={teacherLoginData.email} onChange={handleChange} type="email" name="email" className="form-control" />
-                                    
-                                </div>
-                                <div className="mb-3">
-                                    <label for="exampleInputPassword1" className="form-label">Password</label>
-                                    <input value={teacherLoginData.password} onChange={handleChange} type="password" name="password" className="form-control" />
+                                    <label for="exampleInputEmail1" className="form-label">OTP</label>
+                                    <input value={teacherData.otp_digit} onChange={handleChange} type="number" name="otp_digit" className="form-control" />
                                 </div>
 
                                 <button type="submit" onClick={submitForm} className="btn btn-primary">Login</button>
@@ -84,4 +83,4 @@ function TeacherLogin(){
     )
 }
 
-export default TeacherLogin;
+export default OtpVerify;

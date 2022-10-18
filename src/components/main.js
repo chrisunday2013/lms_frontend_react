@@ -56,7 +56,7 @@ import TakeQuiz from './takeQuiz';
 import Faqs from './faqs';
 import Page from './page';
 import ContactUs from './contactUs';
-
+import OtpVerify from './otpVerify';
 
 
 
@@ -72,6 +72,7 @@ function Main() {
          <Route path="/search/:search_id" element={<Search/>}/>
          <Route path="/detail/:course_id" element={<CourseDetail/>}/>
          <Route path="/user-login" element={<Login/>}/>
+         <Route path="/verify-teacher/:teacher_id" element={<OtpVerify/>}/>
          <Route path="/user-logout" element={<StudentLogout/>}/>
          <Route path="/user-register" element={<Register/>}/>
          <Route path="/user-dashboard" element={<Dashboard/>}/>
