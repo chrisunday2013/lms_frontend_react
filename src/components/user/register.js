@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 const baseUrl="http://localhost:8000/api/student/";
 
 function Register(){
-    
+    const navigate=useNavigate()
     const [studentData, setStudentData]=useState({
         'full_name':'',
         'email':'',
         'password':'',
         'username':'',
         'interested_categories':'',
-        'status': ''
+        'status': '',
+        'otp_digit':''
     });
     
      // change value of element
@@ -27,6 +29,7 @@ function Register(){
     
         // Submit Form
         const submitForm=()=>{
+            const otp_digit=Math.floor(1000000 + Math.random() * 900000);
             const studentFormData=new FormData();
     
             studentFormData.append("full_name", studentData.full_name)
@@ -34,19 +37,23 @@ function Register(){
             studentFormData.append("username", studentData.username)
             studentFormData.append("password", studentData.password)
             studentFormData.append("interested_categories", studentData.interested_categories)
-    
+            studentFormData.append("otp_digit", otp_digit)
     
             try{
                 axios.post(baseUrl,studentFormData).then((response)=>{
+                    console.log(response.data);
+                    navigate('/verify-student/'+response.data.id);
+                  
+                }).catch(function(error){
                     setStudentData({
-                        'full_name':'',
-                        'email':'',
-                        'username':'',
-                        'password':'',
-                        'interested_categories':'',
+                        'full_name':error.response.data.full_name,
+                        'email':error.response.data.email[0],
+                        'username':error.response.data.username,
+                        'password':error.response.data.password,
+                        'interested_categories':error.response.data.interested_categories,
                         'status': 'success'
                     });
-                });
+                })
     
             }catch(error){
                  console.log(error);
@@ -54,12 +61,6 @@ function Register(){
             }
         };
         
-    
-        
-        // const teacherLoginStatus=localStorage.getItem('teacherLoginStatus')
-        // if(teacherLoginStatus=='true'){
-        //     window.location.href='/user-dashboard'
-        // }
     
         useEffect(()=>{
             document.title="Student Register"

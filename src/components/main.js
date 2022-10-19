@@ -57,6 +57,7 @@ import Faqs from './faqs';
 import Page from './page';
 import ContactUs from './contactUs';
 import OtpVerify from './otpVerify';
+import OtpVerifyStudent from './user/otpVerifyStudent';
 
 
 
@@ -73,6 +74,7 @@ function Main() {
          <Route path="/detail/:course_id" element={<CourseDetail/>}/>
          <Route path="/user-login" element={<Login/>}/>
          <Route path="/verify-teacher/:teacher_id" element={<OtpVerify/>}/>
+         <Route path="/verify-student/:student_id" element={<OtpVerifyStudent/>}/>
          <Route path="/user-logout" element={<StudentLogout/>}/>
          <Route path="/user-register" element={<Register/>}/>
          <Route path="/user-dashboard" element={<Dashboard/>}/>

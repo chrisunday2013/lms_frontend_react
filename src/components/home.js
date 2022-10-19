@@ -81,7 +81,7 @@ function Home(){
                          </div>
                          <div className="card-footer">
                             <div className="title">
-                                <span>Rating; {row.rating}/5</span>
+                                <span>Rating: {row.rating}/5</span>
                                 <span className="float-end">Views: {row.course.course_views}</span>
                             </div>
 
