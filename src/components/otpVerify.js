@@ -35,7 +35,7 @@ function OtpVerify(){
                 if(response.data.bool===true){
                     localStorage.setItem('teacherLoginStatus', true);
                     localStorage.setItem('teacherId', response.data.teacher_id);
-                    navigate('/teacher-dashboard')
+                    navigate('/teacher-dashboard');
                     // window.location.href='/teacher-dashboard';
                 }else{
                     setErrorMsg(response.data.msg);

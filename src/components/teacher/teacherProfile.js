@@ -17,6 +17,7 @@ function TeacherProfile(){
         'status': '',
         'profile_img':'',
         'p_img':'',
+        'login_auth_otp':'',
     });
     const teacherId=localStorage.getItem('teacherId');
 
@@ -32,6 +33,7 @@ function TeacherProfile(){
                     skills:res.data.skills,
                     prev_img:res.data.profile_img,
                     profile_img:'',
+                    login_auth_otp:res.data.login_auth_otp,
                     
                 });
             });
@@ -66,6 +68,7 @@ function TeacherProfile(){
             teacherFormData.append("qualification", teacherData.qualification)
             teacherFormData.append("mobile_no", teacherData.mobile_no)
             teacherFormData.append("skills", teacherData.skills)
+            teacherFormData.append("login_auth_otp", teacherData.login_auth_otp)
             
             if(teacherData.profile_img !==""){
                 teacherFormData.append("profile_img", teacherData.profile_img, teacherData.profile_img.name);
@@ -140,7 +143,6 @@ function TeacherProfile(){
                                     }
                             </div>
 
-                           
                             <div className="mb-3 row">
                                 <label for="exampleInputPassword1" className="form-label">Skills</label>
                                 <textarea value={teacherData.skills} onChange={handleChange} name="skills" className="form-control"></textarea>
@@ -150,6 +152,13 @@ function TeacherProfile(){
                                 <label for="exampleInputPassword1" className="form-label">Qualification</label>
                                 <textarea value={teacherData.qualification} onChange={handleChange} name="qualification" className="form-control"></textarea>
                                 <div id="emailHelp" class="form-text">BSC | MSC</div>
+                            </div>
+
+                            <div className="mb-3 row">
+                                    <label for="inputPassword" className="form-label">Login_Auth_Otp</label>
+                                    <div class="col-sm-10">
+                                    <input type="text"value={teacherData.login_auth_otp} onChange={handleChange} name="login_auth_otp" className="form-control" id="inputPassword"/>
+                                    </div>
                             </div>
                            
                             <hr/>

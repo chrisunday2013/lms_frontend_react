@@ -1,10 +1,12 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 const baseUrl='http://127.0.0.1:8000/api';
 
 function TeacherLogin(){
+    const navigate=useNavigate()
     const [teacherLoginData, setteacherLoginData]=useState({
         email:'',
         password:''
@@ -29,11 +31,14 @@ function TeacherLogin(){
         try{
             axios.post(baseUrl+'/teacher-login', teacherFormData)
             .then((response)=>{
-                // console.log(response.data);
                 if(response.data.bool===true){
-                    localStorage.setItem('teacherLoginStatus', true);
-                    localStorage.setItem('teacherId', response.data.teacher_id);
-                    window.location.href='/teacher-dashboard';
+                    if(response.data.login_auth_otp===true){
+                        navigate('/verify-teacher/'+response.data.teacher_id);
+                    }else{
+                        localStorage.setItem('teacherLoginStatus', true);
+                        localStorage.setItem('teacherId', response.data.teacher_id);
+                        navigate('/teacher-dashboard');
+                    }
                 }else{
                     setErrorMsg(response.data.msg);
                 }
