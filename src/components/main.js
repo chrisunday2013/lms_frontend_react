@@ -59,6 +59,8 @@ import ContactUs from './contactUs';
 import OtpVerify from './otpVerify';
 import OtpVerifyStudent from './user/otpVerifyStudent';
 import ForgetPassword from './teacher/forgetPassword';
+import UserResetPassword from './user/userResetPassword';
+import StudentForgetPass from './user/userForgetPass';
 
 
 
@@ -77,6 +79,9 @@ function Main() {
          <Route path="/user-login" element={<Login/>}/>
          <Route path="/teacher-forget-password" element={<ForgetPassword/>}/>
          <Route path="/teacher-reset-password/:teacher_id" element={<ResetPassword/>}/>
+
+         <Route path="/student-forget-password" element={<StudentForgetPass/>}/>
+         <Route path="/student-reset-password/:student_id" element={<UserResetPassword/>}/>
 
          <Route path="/verify-teacher/:teacher_id" element={<OtpVerify/>}/>
          <Route path="/verify-student/:student_id" element={<OtpVerifyStudent/>}/>

@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 const baseUrl='http://127.0.0.1:8000/api';
 
@@ -77,6 +77,8 @@ function Login(){
                                     <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
                                     <label className="form-check-label" for="exampleCheck1">Remember me</label>
                                 </div> */}
+                                  <button type="submit" onClick={submitForm} className="btn btn-primary">Login</button>
+                                <p className="mt-3"><Link to="/student-forget-password"  className="text-danger">Forgot Password?</Link></p>
                                <button type="submit" onClick={submitForm} className="btn btn-primary">Login</button>
                             {/* </form> */}
                         </div>
