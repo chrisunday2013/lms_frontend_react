@@ -1,42 +1,41 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import {useParams, useNavigate} from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const baseUrl='http://127.0.0.1:8000/api';
 
-function OtpVerify(){
-    const navigate=useNavigate();
-    const [teacherData, setTeacherData]=useState({
-        otp_digit:''
+function ForgetPassword(){
+    const navigate=useNavigate()
+    const [teacherData, setteacherData]=useState({
+        email:'',
         
     })
      
+    const [successMsg, setSuccessMsg]=useState('');  
     const [errorMsg, setErrorMsg]=useState('');  
   
+
     const handleChange=(event)=>{
-        setTeacherData({
+        setteacherData({
             ...teacherData,[event.target.name]:event.target.value
         });
     }
 
-    const {teacher_id}=useParams();
-
     const submitForm=()=>{
         const teacherFormData=new FormData();
-        teacherFormData.append('otp_digit', teacherData.otp_digit)
+        teacherFormData.append('email', teacherData.email)
 
         try{
-            axios.post(baseUrl+'/verify-teacher/'+teacher_id+'/', teacherFormData)
+            axios.post(baseUrl+'/teacher-forgot-password/', teacherFormData)
             .then((response)=>{
-                // console.log(response.data);
                 if(response.data.bool===true){
-                    localStorage.setItem('teacherLoginStatus', true);
-                    localStorage.setItem('teacherId', response.data.teacher_id);
-                    navigate('/teacher-dashboard');
-                    // window.location.href='/teacher-dashboard';
+                    setSuccessMsg(response.data.msg);
+                    setErrorMsg('');
                 }else{
                     setErrorMsg(response.data.msg);
+                    setSuccessMsg('');
                 }
 
             })
@@ -47,12 +46,11 @@ function OtpVerify(){
 
     const teacherLoginStatus=localStorage.getItem('teacherLoginStatus')
     if(teacherLoginStatus==='true'){
-        navigate('/teacher-dashboard')
-        // window.location.href='/teacher-dashboard'
+        window.location.href='/teacher-dashboard'
     }
 
     useEffect(()=>{
-        document.title='Verify Teacher Login'
+        document.title='Teacher Forget Password'
     });
 
     return (
@@ -60,17 +58,19 @@ function OtpVerify(){
             <div className="row">
                 <div className="col-6 offset-3">
                     <div className="card">
+                    {successMsg && <p className="text-success">{successMsg}</p>}   
                     {errorMsg && <p className="text-danger">{errorMsg}</p>}
-                        <h5 className="card-header">Enter 6 Digit OTP</h5>
+                        <h5 className="card-header">Enter Your Registered Email</h5>
                         <div className="card-body">
                             
                            {/* <form> */}
                                 <div className="mb-3">
-                                    <label for="exampleInputEmail1" className="form-label">OTP</label>
-                                    <input value={teacherData.otp_digit} onChange={handleChange} type="number" name="otp_digit" className="form-control" />
+                                    <label for="exampleInputEmail1" className="form-label">Email</label>
+                                    <input value={teacherData.email} onChange={handleChange} type="email" name="email" className="form-control" />
+                                    
                                 </div>
 
-                                <button type="submit" onClick={submitForm} className="btn btn-primary">Login</button>
+                                <button type="submit" onClick={submitForm} className="btn btn-primary">Send</button>
                             {/* </form> */}
                         </div>
 
@@ -81,4 +81,4 @@ function OtpVerify(){
     )
 }
 
-export default OtpVerify;
+export default ForgetPassword;

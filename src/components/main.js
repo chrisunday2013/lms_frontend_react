@@ -58,10 +58,12 @@ import Page from './page';
 import ContactUs from './contactUs';
 import OtpVerify from './otpVerify';
 import OtpVerifyStudent from './user/otpVerifyStudent';
+import ForgetPassword from './teacher/forgetPassword';
 
 
 
 import {Routes as Switch, Route} from 'react-router-dom';
+import ResetPassword from './teacher/resetPassword';
 
 
 function Main() {
@@ -73,6 +75,9 @@ function Main() {
          <Route path="/search/:search_id" element={<Search/>}/>
          <Route path="/detail/:course_id" element={<CourseDetail/>}/>
          <Route path="/user-login" element={<Login/>}/>
+         <Route path="/teacher-forget-password" element={<ForgetPassword/>}/>
+         <Route path="/teacher-reset-password/:teacher_id" element={<ResetPassword/>}/>
+
          <Route path="/verify-teacher/:teacher_id" element={<OtpVerify/>}/>
          <Route path="/verify-student/:student_id" element={<OtpVerifyStudent/>}/>
          <Route path="/user-logout" element={<StudentLogout/>}/>

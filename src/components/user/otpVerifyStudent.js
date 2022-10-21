@@ -31,7 +31,7 @@ function OtpVerifyStudent(){
                 // console.log(response.data);
                 if(response.data.bool===true){
                     localStorage.setItem('studentLoginStatus', true);
-                    localStorage.setItem('studentId', response.data.teacher_id);
+                    localStorage.setItem('studentId', response.data.student_id);
                     navigate('/user-dashboard')
                 }else{
                     setErrorMsg(response.data.msg);

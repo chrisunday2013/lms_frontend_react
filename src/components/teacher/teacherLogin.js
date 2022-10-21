@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const baseUrl='http://127.0.0.1:8000/api';
@@ -13,7 +14,6 @@ function TeacherLogin(){
         
     })
      
-    
     const [errorMsg, setErrorMsg]=useState('');  
   
 
@@ -79,6 +79,7 @@ function TeacherLogin(){
                                 </div>
 
                                 <button type="submit" onClick={submitForm} className="btn btn-primary">Login</button>
+                                <p className="mt-3"><Link to="/teacher-forget-password"  className="text-danger">Forgot Password?</Link></p>
                             {/* </form> */}
                         </div>
 

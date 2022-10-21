@@ -16,6 +16,7 @@ function Profile(){
         'interested_categories':'',
         'profile_img':'',
         'p_img':'',
+        'login_auth_otp':'',
     });
     const studentId=localStorage.getItem('studentId');
 
@@ -30,6 +31,7 @@ function Profile(){
                     interested_categories:res.data.interested_categories,
                     prev_img:res.data.profile_img,
                     profile_img:'',
+                    login_auth_otp:res.data.login_auth_otp,
                     
                 });
             });
@@ -63,7 +65,8 @@ function Profile(){
             studentFormData.append("email", studentData.email)
             studentFormData.append("username", studentData.username)
             studentFormData.append("interested_categories", studentData.interested_categories)
-            
+            studentFormData.append("login_auth_otp", studentFormData.login_auth_otp)
+
             if(studentData.profile_img !==""){
                 studentFormData.append("profile_img", studentData.profile_img, studentData.profile_img.name);
             }
@@ -146,6 +149,13 @@ function Profile(){
                                 <label for="exampleInputPassword1" className="form-label">Interested Categories</label>
                                 <textarea value={studentData.interested_categories} onChange={handleChange} name="interested_categories" className="form-control"></textarea>
                                 <div id="emailHelp" className="form-text">Java | Python</div>
+                            </div>
+
+                            <div className="mb-3 row">
+                                    <label for="inputPassword" className="form-label">Login_Auth_Otp</label>
+                                    <div class="col-sm-10">
+                                    <input type="text"value={studentData.login_auth_otp} onChange={handleChange} name="login_auth_otp" className="form-control" id="inputPassword"/>
+                                    </div>
                             </div>
                            
                             <hr/>
