@@ -79,7 +79,6 @@ function Login(){
                                 </div> */}
                                   <button type="submit" onClick={submitForm} className="btn btn-primary">Login</button>
                                 <p className="mt-3"><Link to="/student-forget-password"  className="text-danger">Forgot Password?</Link></p>
-                               <button type="submit" onClick={submitForm} className="btn btn-primary">Login</button>
                             {/* </form> */}
                         </div>
 
